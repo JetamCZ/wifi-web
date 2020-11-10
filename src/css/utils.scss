@@ -1,0 +1,123 @@
+.underline {
+    text-decoration: underline;
+}
+
+.w-page-800 {
+    margin-top: 20px;
+    max-width: 800px;
+}
+
+.w-page-1 {
+    margin-top: 20px;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.shadow {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.text-right {text-align: right !important;}
+.text-center {text-align: center !important;}
+
+.w-100 {
+    width: 100%;
+}
+
+.opacity-1 {
+    opacity: 0.3;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.loading {
+    background-color: white;
+    width: 100%;
+    margin: 10px 0;
+    box-sizing: border-box;
+    padding: 80px 0;
+    color: #a3a3a3;
+
+    &.isError {
+        color: #fe7979;
+        font-weight: 600;
+        font-size: 1.5em;
+        letter-spacing: 1px;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    svg {
+        height: 50px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    .loading-title {
+        display: inline-block;
+    }
+}
+
+.badge {
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #e3e3e3;
+    margin: 0 3px;
+    padding: 2px 5px;
+    font-size: 0.8em;
+    border-radius: 5px;
+
+    svg {
+        height: 20px;
+        margin-right: 5px;
+        vertical-align: middle;
+    }
+
+    &.badge-success {
+        background-color: green;
+        color: white;
+    }
+
+    &.badge-warning {
+        background-color: #ff9800;
+        color: white;
+    }
+
+    &.badge-danger {
+        background-color: red;
+        color: white;
+    }
+}
+
+.breadcrumbs {
+    margin-bottom: 20px;
+
+    .item, .divider {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .item {
+        color: #afb5be;
+    }
+
+    a {
+        text-decoration: none;
+
+        .item {
+            color: $main-text;
+        }
+    }
+}
+
+.link-clear {
+    color: inherit;
+    text-decoration: none;
+}

@@ -1,0 +1,92 @@
+.page-maps {
+    .map {
+        background-color: white;
+        display: inline-block;
+        max-width: 300px;
+        width: 100%;
+        margin: 10px 10px;
+
+        .view {
+            height: 150px;
+            background-color: red;
+            overflow: hidden;
+            filter: grayscale(100%);
+            opacity: 0.5;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .info {
+            padding: 20px 15px;
+
+            .name {
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.page-map {
+    #map-leaflet, #map-leaflet-2 {
+        height: 500px;
+        width: 1000px;
+    }
+
+    .map-frame {
+        max-width: 1000px;
+        max-height: 600px;
+        /*background-color: #2f3a4b;*/
+        overflow: auto;
+
+        .map-view {
+            position: relative;
+
+            .grid {
+                position: absolute;
+                top: 0; left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url("/img/grid.png");
+            }
+
+            .device {
+                width: 16px;
+                height: 16px;
+                margin-left: -8px;
+                margin-top: -8px;
+                border-radius: 50%;
+                background-color: #00b216;
+
+                position: absolute;
+                top: 0px;
+                left: 0px;
+            }
+
+            .beacon {
+                position: absolute;
+                border-radius: 50%;
+
+                width: 10px;
+                height: 10px;
+                margin-left: -5px;
+                margin-top: -5px;
+
+                background-color: red;
+
+                .beacon-name {
+                    width: 120px;
+                    margin-left: -60px;
+                    margin-top: -25px;
+                    background-color: rgba(0,0,0,0.5);
+                    padding: 5px 2px;
+                }
+
+                color: white;
+                text-align: center;
+                font-size: 10px;
+            }
+        }
+    }
+}

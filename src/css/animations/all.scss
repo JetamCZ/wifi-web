@@ -1,0 +1,12 @@
+@import "attention";
+@import "bounce";
+@import "fade";
+@import "flip";
+@import "rotate";
+@import "slide";
+@import "zoom";
+
+
+.animation-infinite {
+    animation-iteration-count: infinite !important;
+}
