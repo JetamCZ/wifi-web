@@ -3,6 +3,7 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import Text from "../../components/Text";
 import {Link} from "react-router-dom"
 import AxiosInstance from "../../utils/AxiosInstance";
+import Loading from "../../utils/loading";
 
 const Maps = () => {
     const [maps, setMaps] = useState([])
@@ -19,6 +20,11 @@ const Maps = () => {
             <Breadcrumbs items={[
                 {href: "/maps", item: <Text id="menu.maps">Maps</Text>}
             ]}/>
+
+            {
+                maps.length === 0 &&
+                <div className="w-page-800"><Loading isError={false}/></div>
+            }
 
             <div className="maps-list">
                 {

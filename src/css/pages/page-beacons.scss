@@ -1,0 +1,36 @@
+.page-beacons {
+    .beacon-list {
+        margin: 20px 0;
+        display: flex;
+        flex-wrap: wrap;
+
+        .beacon {
+            background-color: white;
+            padding: 20px 15px;
+            max-width: 250px;
+            width: 100%;
+            margin: 5px;
+
+            h3 {
+                margin: 0;
+            }
+
+            .key {
+                font-size: 12px;
+            }
+
+            .status {
+                margin-top: 20px;
+                display: flex;
+
+                .col {
+                    width: 50%;
+                }
+            }
+
+            .last-data {
+                font-size: 12px;
+            }
+        }
+    }
+}

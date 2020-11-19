@@ -23,7 +23,8 @@ const Beacons = () => {
                     setDataError(false)
                     setLastUpdate(new Date())
                 })
-                .catch(() => {
+                .catch((err) => {
+
                     setDataError(true)
                 })
                 .finally(() => {
@@ -39,46 +40,30 @@ const Beacons = () => {
         return function cleanup() {
             clearInterval(interval)
         }
-    }, [])
+    }, [update])
 
     return (
-        <div className="page-beacons w-page-800">
+        <div className="page-beacons w-page-1000">
             <Breadcrumbs items={[
                 {href: '', item: <Text id='menu.beacons'>Beacons</Text>}
             ]}/>
+
+
             {
                 data ? (
-                    <table className={"table shadow"}>
-                        <thead>
-                        <tr>
-                            <th colSpan={4} className="text-right">
-                                <Text id={"page-beacons.table.last-update"}>Poslední update</Text>: {Format.time(lastUpdate)}
-                            </th>
-                        </tr>
-                        <tr>
-                            <th><Text id={"page-beacons.table.name"}>Název</Text></th>
-                            <th><Text id={"page-beacons.table.device-key"}>Klíč zařízení</Text></th>
-                            <th><Text id={"page-beacons.table.last-data"}>Poslední data</Text></th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                data.map(beacon =>
-                                    <tr>
-                                        <td>
-                                            {
-                                                beacon.name ? beacon.name : (
-                                                    <span className="text-gray-400"><Text id={'page-beacons.table.unknown-name'}>Neznámý název</Text></span>
-                                                )
-                                            }
-                                        </td>
-                                        <td>{beacon.deviceKey}</td>
-                                        <td>
+                    <div className="beacon-list">
+                        {
+                            data.map(beacon =>
+                                <div className="beacon shadow">
+                                    <h3>{beacon.name}</h3>
+                                    <div className="key">{beacon.deviceKey}</div>
+
+                                    <div className="status">
+                                        <div className="col last-data">
                                             {Format.dateTime(new Date(beacon.lastSeenDate))} <br/>
                                             {Format.diff(new Date(beacon.lastSeenDate))}
-                                        </td>
-                                        <td>
+                                        </div>
+                                        <div className="col">
                                             {
                                                 Format.diffInSeconds(new Date(beacon.lastSeenDate)) < 10 && (
                                                     <span className="badge badge-success">
@@ -91,7 +76,7 @@ const Beacons = () => {
                                             }
                                             {
                                                 (
-                                                    Format.diffInSeconds(new Date(beacon.lastSeenDate)) >= 10 
+                                                    Format.diffInSeconds(new Date(beacon.lastSeenDate)) >= 10
                                                     && Format.diffInSeconds(new Date(beacon.lastSeenDate)) < 30
                                                 ) && (
                                                     <span className="badge badge-warning">
@@ -112,16 +97,17 @@ const Beacons = () => {
                                                     </span>
                                                 )
                                             }
-                                        </td>
-                                    </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </div>
                 ) : (
                     <Loading isError={dataError}/>
                 )
             }
+
         </div>
     )
 }

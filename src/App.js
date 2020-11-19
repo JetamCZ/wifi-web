@@ -22,6 +22,7 @@ import Settings from "./pages/settings";
 import Maps from "./pages/maps/maps";
 import Map from "./pages/maps/map";
 import Map2 from "./pages/maps/map2";
+import BigMap from "./pages/maps/BigMap";
 
 const App = () => {
     return (
@@ -59,6 +60,9 @@ const App = () => {
                     <MainLayout title={<Text id={'menu.maps'}>Maps</Text>}>
                         <Maps/>
                     </MainLayout>
+                </Route>
+                <Route path="/map/:id/big">
+                    <BigMap/>
                 </Route>
                 <Route path="/map/:id">
                     <MainLayout title={<Text id={'menu.map'}>Map</Text>}>

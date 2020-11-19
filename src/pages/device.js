@@ -26,6 +26,7 @@ const Device = () => {
         }
     }, []);
 
+
     const update = () => {
         AxiosInstance.get('devices/' + macAddress)
             .then((response) => {
@@ -42,7 +43,7 @@ const Device = () => {
 
 
     return (
-        <div className="page-devices w-page-800">
+        <div className="page-device w-page-800">
             <Breadcrumbs items={[
                 {href: '/devices', item: <Text id={'menu.devices'}>Zařízení</Text>},
                 {href: '', item: (data && data.name) ? data.name + ' (' + data.mac + ')' : macAddress}
@@ -78,29 +79,20 @@ const Device = () => {
                             </tbody>
                         </table>
 
-                        <table className="table shadow">
-                            <thead>
-                            <tr>
-                                <th><Text id='device-page.rssis'>Síli signálů</Text></th>
-                                <th colSpan="2" className="text-right"><Text id='device-page.lastUpdate'>Poslední
-                                    update</Text>: {lastUpdate}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                        <h2><Text id='device-page.rssis'>Síli signálů (<Text id='device-page.lastUpdate'>Poslední
+                            update</Text>: {lastUpdate})</Text></h2>
+                        <div className="beacons">
                             {
-                                data.lastSeens.map(ls =>
-                                    <tr>
-                                        <td>BeaconName - {ls.deviceKey}</td>
-                                        <td>
-                                            {Format.dateTime(new Date(ls.date))} <br/>
-                                            {Format.diff(new Date(ls.date))}
-                                        </td>
-                                        <td>{ls.rssi}</td>
-                                    </tr>
-                                )
+                                data.lastSeens.map(ls => <div className="beacon">
+                                    <div className="rssi">{ls.rssi} db</div>
+                                    <div className="name">{ls.name}</div>
+                                    <div className="key">{ls.deviceKey}</div>
+                                    <div className="date">
+                                        {Format.diff(new Date(ls.date))}
+                                    </div>
+                                </div>)
                             }
-                            </tbody>
-                        </table>
+                        </div>
 
                         <div className="shadow bg-white">
                             <div className="box-header">Mapka - test</div>

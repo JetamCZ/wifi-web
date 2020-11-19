@@ -1,12 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import Text from "../components/Text";
 import StatusBar from "../components/StatusBar";
 import {NavLink} from "react-router-dom"
 
 const MainLayout = (props) => {
+    const [full, setFull] = useState(false)
+
+    const toggle = (value) => {
+        if(window.innerWidth > 700) {
+            setFull(value)
+        }
+    }
+
     return (
-        <div className="layout-frame compact">
-            <div className="main-menu">
+        <div className={full ? "layout-frame" : "layout-frame compact"}>
+            <div className="main-menu"
+                 onMouseEnter={() => toggle(true)}
+                 onMouseLeave={() => toggle(false)}
+            >
                 <div className="logo">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"

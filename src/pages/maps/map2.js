@@ -3,7 +3,7 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import Text from "../../components/Text";
 import Leaflet from "leaflet";
 import AxiosInstance from "../../utils/AxiosInstance";
-import {StatusBarContext} from "../../contexts/StatusBarProvider";
+import Switch from '@material-ui/core/Switch';
 
 class Map2 extends React.Component {
     constructor(props) {
@@ -11,7 +11,7 @@ class Map2 extends React.Component {
 
         this.state = {
             mapData: null,
-            lock: false,
+            lock: true,
             moving: null
         }
 
@@ -93,8 +93,6 @@ class Map2 extends React.Component {
     }
 
     saveBeaconMove(key, latlng) {
-        console.log(key, latlng)
-
         const beacons = [...this.state.mapData.beacons].map(b => {
             delete b._id
             delete b.name
@@ -110,7 +108,7 @@ class Map2 extends React.Component {
         AxiosInstance.put('/maps/5faa4d34f27192296822c1eb', {
             beacons
         }).then(res => {
-            console.log(res)
+            //console.log(res)
         })
     }
 
@@ -131,6 +129,10 @@ class Map2 extends React.Component {
                 <div id="map-leaflet-2">
 
                 </div>
+                Lock moving beacons
+                <Switch checked={this.state.lock} onChange={() => {
+                    this.setState({lock: !this.state.lock})
+                }}/>
             </div>
         )
     }

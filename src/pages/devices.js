@@ -6,6 +6,8 @@ import Format from "../utils/formats";
 import setHeader from "../utils/setHeader";
 import Table from "./devices/table";
 import Breadcrumbs from "../components/Breadcrumbs";
+import {Link} from "react-router-dom";
+import Skeleton from '@material-ui/lab/Skeleton';
 
 
 const Devices = () => {
@@ -45,6 +47,7 @@ const Devices = () => {
     const selected = [
         'e0:d0:83:d6:2a:57', //Matěj Telefon
         '58:00:e3:ca:99:01', //Matěj NTB
+        '3c:dc:bc:97:f2:29', //Alenka mobil
     ]
 
     const samsung = false;
@@ -76,8 +79,46 @@ const Devices = () => {
                         />
                     </>
                 ) : (
-                    <div className="w-page-800">
-                        <Loading isError={dataError}/>
+                    <div className="w-page-1000">
+                        {/*<Loading isError={dataError}/>*/}
+
+                        <div className="devices-frame">
+                            {
+                                [...Array(3)].map(() =>
+                            <div className='device shadow'>
+                                <div className="body">
+                                    <div className="name">
+                                        <Skeleton animation="wave" width={100} height={30}/>
+                                    </div>
+                                    <div className="mac"><Skeleton animation="wave" width={200}/></div>
+
+                                    <table className="rssi">
+                                        <tr>
+                                            <td><Skeleton animation="wave" width={80} height={15}/></td>
+                                            <td><Skeleton animation="wave" width={40} height={15}/></td>
+                                            <td><Skeleton animation="wave" width={40} height={15}/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><Skeleton animation="wave" width={80} height={15}/></td>
+                                            <td><Skeleton animation="wave" width={40} height={15}/></td>
+                                            <td><Skeleton animation="wave" width={40} height={15}/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><Skeleton animation="wave" width={80} height={15}/></td>
+                                            <td><Skeleton animation="wave" width={40} height={15}/></td>
+                                            <td><Skeleton animation="wave" width={40} height={15}/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <div className="bottom">
+                                    <div className="vendor">
+                                        <Skeleton animation="wave" width={250}/>
+                                    </div>
+                                </div>
+                            </div>
+                                )}
+                        </div>
                     </div>
                 )
             }
