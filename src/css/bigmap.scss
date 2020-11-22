@@ -13,15 +13,25 @@
         margin: 0;
     }
 
-    .info-box {
+    .print, .info-box  {
         z-index: 1000;
-        width: 500px;
+        max-width: 500px;
+        width: calc(100% - 40px);
+        box-sizing: border-box;
         min-height: 100px;
         background-color: white;
         position: absolute;
-        bottom: 100px; right: 20px;
-
         padding: 20px;
+    }
+
+    .print {
+        top: 20px; right: 20px;
+        background-color: #25a735;
+        color: white;
+    }
+
+    .info-box {
+        bottom: 100px; right: 20px;
     }
 
     .status {
@@ -55,6 +65,23 @@
         }
     }
 
+    .tools {
+        .tool {
+            width: 25px;
+            height: 25px;
+            background-color: $main-text;
+            color: white;
+
+            line-height: 25px;
+            text-align: center;
+
+            svg {
+                display: inline-block;
+                margin-top: 3px;
+            }
+        }
+    }
+
     .error {
         width: 400px;
         text-align: center;
@@ -63,6 +90,29 @@
 
         img {
             height: 150px;
+        }
+    }
+
+    .plans {
+        position: absolute;
+        top: 20px;
+        right: 10px;
+
+        .plan {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            background-color: $main-text;
+            color: white;
+            font-size: 12px;
+            margin: 0 3px;
+            cursor: pointer;
+
+            &.selected {
+                background-color: #0d87b6;
+            }
         }
     }
 }

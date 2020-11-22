@@ -20,8 +20,6 @@ import Beacons from "./pages/beacons";
 import Device from "./pages/device";
 import Settings from "./pages/settings";
 import Maps from "./pages/maps/maps";
-import Map from "./pages/maps/map";
-import Map2 from "./pages/maps/map2";
 import BigMap from "./pages/maps/BigMap";
 
 const App = () => {
@@ -61,14 +59,11 @@ const App = () => {
                         <Maps/>
                     </MainLayout>
                 </Route>
-                <Route path="/map/:id/big">
-                    <BigMap/>
+                <Route path="/map/:id/print/:mac">
+
                 </Route>
                 <Route path="/map/:id">
-                    <MainLayout title={<Text id={'menu.map'}>Map</Text>}>
-                        {/*<Map/>*/}
-                        <Map2/>
-                    </MainLayout>
+                    <BigMap/>
                 </Route>
                 <Route path='*'>
                     <Error404/>

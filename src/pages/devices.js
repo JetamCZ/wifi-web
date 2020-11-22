@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from "react";
 import Text from "../components/Text";
-import Loading from "../utils/loading";
 import AxiosInstance from "../utils/AxiosInstance";
 import Format from "../utils/formats";
 import setHeader from "../utils/setHeader";
 import Table from "./devices/table";
 import Breadcrumbs from "../components/Breadcrumbs";
-import {Link} from "react-router-dom";
 import Skeleton from '@material-ui/lab/Skeleton';
 
 

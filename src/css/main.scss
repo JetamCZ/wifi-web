@@ -321,6 +321,7 @@ body {
     cursor: pointer;
     text-decoration: none;
     color: inherit;
+    margin: 2px;
 
     &.btn-primary {
         background-color: #00b216;
@@ -332,6 +333,14 @@ body {
     }
 
     &.btn-light {
+        background-color: rgba(0, 0, 0, 0.1);
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    &.btn-cancel {
         background-color: rgba(0, 0, 0, 0.1);
 
         &:hover {

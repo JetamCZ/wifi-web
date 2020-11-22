@@ -56,6 +56,9 @@ const Settings = () => {
                 </label>
             </div>
 
+            <h2 className=""><Text id="page-settings.api">API</Text></h2>
+            <p>toto nastavení v tuto chvíli není možné změnit</p>
+
             {/*
             <label className="input-frame">
                     <div className="title"><Text id={'page-settings.title'}>Title</Text></div>

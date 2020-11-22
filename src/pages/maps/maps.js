@@ -38,7 +38,7 @@ const Maps = () => {
                                 <div className="active-count"></div>
 
                                 <div className="text-right">
-                                    <Link to={"/map/" + m._id} className="btn inline-block btn-lgiht">Zobrazit</Link>
+                                    <Link to={"/map/" + m._id } className="btn inline-block btn-lgiht">Zobrazit</Link>
                                 </div>
                             </div>
                         </div>

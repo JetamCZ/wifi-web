@@ -19,7 +19,7 @@ const Device = () => {
 
     useEffect(() => {
         update()
-        const interval = setInterval(update, 5000)
+        const interval = setInterval(update, 1000)
 
         return function cleanup() {
             clearInterval(interval)
