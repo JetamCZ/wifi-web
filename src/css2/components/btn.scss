@@ -1,0 +1,54 @@
+.btn {
+    transition-duration: .2s;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    padding: .5rem 1rem;
+    display: inline-flex;
+    cursor: pointer;
+    border-radius: .25rem;
+    font-size: 16px;
+    margin: 0 3px;
+
+    background-color: #dadbde;
+    &:hover {background-color: #c0c1c1;}
+    vertical-align: middle;
+
+    img {
+        height: 15px;
+        margin-right: 7px;
+        vertical-align: middle;
+        display: inline-block;
+    }
+
+    &.sm {
+        font-size: 0.8em;
+        letter-spacing: 0.3px;
+
+        img {
+            height: 12px;
+        }
+    }
+
+    &.success {
+        background-color: $main-color;
+        font-weight: 600;
+        color: white;
+
+        &:hover {background-color: #2cb57c;}
+    }
+
+    &.warning {
+        background-color: #dbbe2d;
+        font-weight: 600;
+        color: white;
+
+        &:hover {background-color: #c3a81f;}
+    }
+
+    &.danger {
+        background-color: #ff4949;
+        font-weight: 600;
+        color: white;
+
+        &:hover {background-color: #e02f2f;}
+    }
+}

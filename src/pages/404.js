@@ -1,19 +1,19 @@
 import React from "react";
-import Text from "../components/Text";
 import {Link} from "react-router-dom"
+import T from "../components/T";
 
 const Error404 = () => {
     return (
         <>
             <div className="page-404">
                 <div className="box">
-                    <img src='/img/people/096.png' className="u--pulse animation-infinite" alt="error illustration"/>
-                    <h1><Text id={"page-error404.title"}>Chyba 404</Text></h1>
-                    <p>
-                        <Text id={"page-error404.info"}>Vámi hledaná stránka neexistuje. Prosím zkontrolujte zadanou URL adresu.</Text>
-                    </p>
+                    <img src='/img/empty/search.svg' className="u--pulse animation-infinite" alt="error illustration"/>
+                    <h1><T id="page.page404.errorTitle"/></h1>
+                    <p><T id="page.page404.errorDesc"/> </p>
                     <div className="link">
-                        <Link to="/" className='btn btn-light'><Text id={"page-error404.back-to-dashboard"}>Zpět na dashboard</Text></Link>
+                        <Link to="/" className='btn btn-light'>
+                            <T id="page.page404.errorBackBtn"/>
+                        </Link>
                     </div>
                 </div>
             </div>

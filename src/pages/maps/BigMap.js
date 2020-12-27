@@ -258,7 +258,7 @@ class BigMap extends React.Component {
                 const allowedMacs = [
                     'e0:d0:83:d6:2a:57', //Matěj Telefon
                     '58:00:e3:ca:99:01', //Matěj NTB
-                    '3c:dc:bc:97:f2:29', //Alenka mobil
+                    //'3c:dc:bc:97:f2:29', //Alenka mobil
                 ]
 
 

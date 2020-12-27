@@ -1,23 +1,4 @@
 class Format {
-    time(date) {
-        return new Intl.DateTimeFormat('cs', {
-            hour: "numeric",
-            minute: "numeric",
-            second: "numeric"
-        }).format(date).toString()
-    }
-
-    dateTime(date) {
-        return new Intl.DateTimeFormat('cs', {
-            hour: "numeric",
-            minute: "numeric",
-            second: "numeric",
-            day: "numeric",
-            month: "numeric",
-            year: "numeric",
-        }).format(date).toString()
-    }
-
     toHHMMSS(secs) {
         const sec_num = parseInt(secs, 10);
         const hours   = Math.floor(sec_num / 3600);
@@ -36,13 +17,33 @@ class Format {
 
 
     diff(date) {
-        const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
+        const seconds = this.diffInSeconds(date)
 
         if(seconds < 0) {
             return this.toHHMMSS(0)
         }
 
         return this.toHHMMSS(seconds)
+    }
+
+    toHMSWords(date) {
+        const seconds = this.diffInSeconds(date)
+
+        if(seconds < 60) {
+            return seconds + "s"
+        } else if (seconds < 60*60) {
+            return Math.round(seconds / 60) + "min"
+        } else if (seconds < 60*60*60) {
+            return Math.round(seconds / 60 / 60) + "h"
+        } else if (seconds < 60*60*60*24) {
+            return Math.round(seconds / 60 / 60 / 24) + "d"
+        }
+
+        return Math.round(seconds / 60 / 60 / 24 / 7) + "w"
+    }
+
+    toDMYHMS(date) {
+        return date.getDate() + ". " + (date.getMonth()+1) + ". " + date.getFullYear() + " " + date.getHours() + ":" +date.getMinutes() + ":" + date.getSeconds()
     }
 }
 

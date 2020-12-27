@@ -1,0 +1,73 @@
+.com-beacons .beacons {
+    display: flex;
+    flex-wrap: wrap;
+
+    .beacon {
+        max-width: 290px;
+        margin: 10px 5px;
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
+        box-shadow: $shadow;
+        position: relative;
+
+        background-color: white;
+        vertical-align: center;
+
+        .status {
+            position: absolute;
+            top: 10px; right: 10px;
+            display: inline-block;
+            margin-left: 5px;
+            color: red;
+
+            &::before {
+                content: " ";
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                background-color: red;
+                border-radius: 50%;
+                margin-right: 2px;
+            }
+
+            &.offline {
+                color: red;
+
+                &::before {
+                    background: rgb(208,37,37);
+                    background: linear-gradient(56deg, rgba(208,37,37,1) 0%, rgba(253,45,45,1) 69%);
+                }
+            }
+
+            &.online {
+                color: rgb(45,219,56);
+
+                &::before {
+                    background: rgb(45,219,56);
+                    background: linear-gradient(56deg, rgba(45,219,56,1) 0%, rgba(53,253,45,1) 69%);
+                }
+            }
+
+            &.warning {
+                color: rgb(219,197,45);
+
+                &::before {
+                    background: rgb(219,197,45);
+                    background: linear-gradient(56deg, rgba(219,197,45,1) 0%, rgba(253,226,45,1) 69%);
+                }
+            }
+        }
+
+        .name {
+            font-weight: 600;
+            margin-bottom: 10px;
+
+            .key {
+                font-weight: 300;
+                margin-left: 10px;
+            }
+        }
+
+    }
+}

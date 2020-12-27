@@ -1,33 +1,45 @@
-import React from 'react';
-import Text from "../components/Text";
-import setHeader from "../utils/setHeader";
-import Breadcrumbs from "../components/Breadcrumbs";
+import React, {createRef} from "react";
+import Loading from "../utils/loading";
+import Beacons from "./index/beacons";
+import ActivePeople from "./index/ActivePeople";
+import Modal from "../components/Modal";
 
-const Dashboard = () => {
-    setHeader('Dashboard')
+const DashBoard = () => {
+    const modal = createRef()
 
     return (
-        <div className="page-dashboard w-page-800">
-            <Breadcrumbs items={[
-                {href: '', item: <Text id={'menu.dashboard'}>Dashboard</Text>}
-            ]}/>
+        <div className="pageIndex container">
+            <ActivePeople/>
+            <Beacons/>
 
-            <div className="jumbotron shadow">
-                <div className="text">
-                    <h3><Text id={'dashboard.welcome'}>Vítej, zpět</Text> <span className="underline">Matěji</span>!</h3>
-                    <p>
-                        Quisque tincidunt scelerisque libero. Nam libero tempore, cum soluta nobis est
-                        eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.
-                    </p>
+            <h1>Todo List</h1>
+            <br/>
+            <div className="btn success" onClick={() => modal.current.open()}>Zobrazit Todo List</div>
+            <Modal ref={modal}>
+                <h1>Todo list</h1>
 
-                    <a href="/"><Text id={"moreinfo"}>Vice info</Text></a>
-                </div>
-                <div className="image">
-                    <img src='/img/people/094.png' className="u--pulse animation-infinite"/>
-                </div>
-            </div>
+                <h3>Uživatelé</h3>
+                <ul>
+                    <li><strike>Přidávání uživatelů</strike></li>
+                    <li><strike>Odebrání uživatelů</strike></li>
+                    <li>Editace</li>
+                </ul>
+
+                <h3>Zažízení</h3>
+                <ul>
+                    <li>Přidání zařízení</li>
+                    <li>Odebrání zařízení</li>
+                </ul>
+
+                <h3>Majáky</h3>
+                <ul>
+                    <li><strike>Přiřazní majáku k účtu</strike></li>
+                    <li>Editace</li>
+                    <li><strike>Odebrání</strike></li>
+                </ul>
+            </Modal>
         </div>
     )
 }
 
-export default Dashboard;
+export default DashBoard
