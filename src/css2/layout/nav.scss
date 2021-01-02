@@ -77,5 +77,35 @@
             }
 
         }
+
+        @media screen and (max-width: 950px){
+            flex-direction: column;
+            background-color: white;
+            width: 100%;
+            z-index: 10000;
+            box-shadow: 0 5px 5px #dcdada80;;
+
+            position: fixed;
+            top: 80px;
+            left: 0;
+
+            &.mobile-close {
+                display: none;
+            }
+        }
+    }
+
+    .mobile-menu {
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.8;
+        }
+
+        @media screen and (min-width: 950px){
+            display: none;
+        }
     }
 }

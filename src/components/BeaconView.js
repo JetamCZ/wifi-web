@@ -55,6 +55,7 @@ const BeaconView = ({id}) => {
                             </div>
                         </div>
 
+                        <div className="table-wrapper">
                         <table className="table">
                             <thead>
                             <tr>
@@ -75,8 +76,8 @@ const BeaconView = ({id}) => {
                                 </td>
                             </tr>
                             </tbody>
-
                         </table>
+                        </div>
                     </div>
                 )
             }

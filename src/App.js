@@ -3,23 +3,14 @@ import './css/normalize.css';
 import './css2/main.scss';
 
 import './css/animations/all.scss';
-import MainLayout from "./layouts/main";
 import './css/animate.min.css';
 
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Redirect,
 } from "react-router-dom";
-import Text from "./components/Text";
-import Devices from "./pages/devices";
 import Error404 from "./pages/404";
-import Beacons from "./pages/beacons";
-import Device from "./pages/device";
-import OldSettings from "./pages/settings";
-import Maps from "./pages/maps/maps";
-import BigMap from "./pages/maps/BigMap";
 import TopLayout from "./layouts/TopLayout";
 import Settings from "./pages/settings";
 import DashBoard from "./pages/dashboard";
@@ -29,6 +20,8 @@ import LoginPage from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import Organization from "./pages/organization/Organization";
 import CssPlayground from "./pages/css-playground";
+import MapList from "./pages/maps/MapList";
+import LocalizationView from "./pages/maps/LocalizationView";
 
 const App = () => {
     return (
@@ -57,6 +50,19 @@ const App = () => {
                         <Settings/>
                     </TopLayout>
                 </Route>
+
+                <Route path="/maps/:id">
+                    <TopLayout>
+                        <LocalizationView/>
+                    </TopLayout>
+                </Route>
+
+                <Route path="/maps">
+                    <TopLayout>
+                        <MapList/>
+                    </TopLayout>
+                </Route>
+
                 {/*
                 <Route path="/devices/:macAddress">
                     <MainLayout title={<Text id={'menu.devices'}>Zařízení</Text>}>

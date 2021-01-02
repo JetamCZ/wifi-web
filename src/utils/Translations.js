@@ -7,7 +7,7 @@ class Translations {
 
             'component.nav.dashboard': 'Dashboard',
             'component.nav.organization': 'Organizace',
-            'component.nav.devices': 'Zařízení',
+            'component.nav.maps': 'Lokalizace',
             'component.nav.settings': 'Nastavení',
             'component.nav.logout': 'Odhlásit se',
 
@@ -47,6 +47,7 @@ class Translations {
             'viewPerson.devicesCount': 'Počet zařízení',
             'viewPerson.lastActivity': 'Poslední aktivita',
             'viewPerson.table.mac': 'Mac adresa',
+            'viewPerson.table.name': 'Název zařízení',
             'viewPerson.table.lastActivity': 'Poslední aktivita',
             'viewPerson.deleted': 'Člen byl odebrán',
             'viewPerson.removeBtn': 'Odebrat člena',

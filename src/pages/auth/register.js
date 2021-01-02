@@ -81,25 +81,25 @@ const Register = () => {
                         <Link to="/auth"><a className="btn"><T id="page.auth.register.backToLogin"/></a></Link>
                     </div>
                 </>) : (<>
-                    <label>
+                    <label className="form-control">
                         <div className="title"><T id="page.auth.register.input.name"/></div>
                         <input type="text"
                                onChange={(e) => setName(e.target.value)}
                                placeholder={Translations.getId('page.auth.register.input.name.placeholder')}/>
                     </label>
-                    <label>
+                    <label className="form-control">
                         <div className="title"><T id="page.auth.register.input.email"/></div>
                         <input type="text"
                                onChange={(e) => setEmail(e.target.value)}
                                placeholder={Translations.getId('page.auth.register.input.email.placeholder')}/>
                     </label>
-                    <label>
+                    <label className="form-control">
                         <div className="title"><T id="page.auth.register.input.password"/></div>
                         <input type="password"
                                onChange={(e) => setPasswd(e.target.value)}
                                placeholder={Translations.getId('page.auth.register.input.password.placeholder')}/>
                     </label>
-                    <label>
+                    <label className="form-control">
                         <div className="title"><T id="page.auth.register.input.passwordAgain"/></div>
                         <input type="password"
                                onChange={(e) => setPasswdAgain(e.target.value)}

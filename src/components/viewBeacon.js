@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import AxiosInstance from "../utils/AxiosInstance";
 import T from "./T";
-import Jdenticon from "react-jdenticon";
 import formats from "../utils/formats";
-import faker from "faker/locale/cz";
 import oui from "oui";
+import Modal from "./Modal";
 
 const ViewBeacon = (props) => {
     const {id} = props
+
+    const editModal = useRef()
 
     const states = {
         LOADING: 0,
@@ -19,19 +20,33 @@ const ViewBeacon = (props) => {
     const [state, setState] = useState(states.LOADING)
     const [beaconData, setBeaconData] = useState()
 
+    const [editData, setEditData] = useState({
+        name: "",
+        desc: ""
+    })
+
     useEffect(() => {
-        AxiosInstance.get('/organization/beacon/'+id)
+        update()
+    }, [])
+
+    const update = () => {
+        AxiosInstance.get('/beacons/'+id)
             .then((res) => {
                 setBeaconData(res.data)
                 setState(states.DONE)
+
+                setEditData({
+                    name: res.data.name,
+                    desc: res.data.desc
+                })
             })
             .catch(() => {
                 setState(states.ERROR)
             })
-    }, [])
+    }
 
     const remove = () => {
-        AxiosInstance.delete('/organization/beacon/'+id)
+        AxiosInstance.delete('/beacons/'+id)
             .then(() => {
                 setState(states.DELETED)
 
@@ -39,6 +54,19 @@ const ViewBeacon = (props) => {
                     props.refresh()
                 }
             })
+    }
+
+    const save = () => {
+        AxiosInstance.put('/beacons/'+id, editData)
+            .then(res => {
+                    editModal.current.close()
+                    update()
+
+                    if(props.refresh) {
+                        props.refresh()
+                    }
+                }
+            )
     }
 
     return (
@@ -51,7 +79,7 @@ const ViewBeacon = (props) => {
 
             {
                 state === states.DONE && (
-                    <div className="viewBeacon">
+                    <div className="modalView">
                         <h1 className="name">{beaconData.name}</h1>
 
                         <div className="summary">
@@ -105,17 +133,42 @@ const ViewBeacon = (props) => {
                         </table>
 
                         <div className="tools">
-                            {/*
-                            <div className="item">
+                            <div className="item" onClick={() => {editModal.current.open()}}>
                                 <img src={'/img/icons/edit.svg'} alt="Edit icon"/>
                                 Editovat maják
                             </div>
-                            */}
                             <div className="item" onClick={remove}>
                                 <img src={'/img/icons/trash.svg'} alt="Trash icon"/>
                                <T id='viewBeacon.removeBtn'/>
                             </div>
                         </div>
+
+                        <Modal ref={editModal}>
+                            <h1>Editace majáku</h1>
+
+                            <div className="gap h-2"></div>
+
+                            <label className="form-control">
+                                <div className="title">Název</div>
+                                <input type="text"
+                                       onChange={(e) => {setEditData({...editData, name: e.target.value})}}
+                                       defaultValue={beaconData.name}
+                                       placeholder="Zadej název"/>
+                            </label>
+
+                            <label className="form-control">
+                                <div className="title">Popis umístění</div>
+                                <input type="text"
+                                       onChange={(e) => {setEditData({...editData, desc: e.target.value})}}
+                                       defaultValue={beaconData.desc}
+                                       placeholder="Zadej popis umístění"/>
+                            </label>
+
+                            <div className="text-right">
+                                <div className="btn success" onClick={save}>Upravit maják</div>
+                            </div>
+                        </Modal>
+
                     </div>
                 )
             }

@@ -1,4 +1,3 @@
-import Axios from "axios";
 import AxiosInstance from "../utils/AxiosInstance";
 import jwt_decode from "jwt-decode";
 

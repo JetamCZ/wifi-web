@@ -12,13 +12,18 @@ const ViewPerson = (props) => {
     const states = {
         LOADING: 0,
         DONE: 1,
-        ERROR: 2
+        ERROR: 2,
+        DELETED: 3
     }
 
     const [state, setState] = useState(states.LOADING)
     const [personData, setPersonData] = useState()
 
     useEffect(() => {
+        update()
+    }, [])
+
+    const update = () => {
         AxiosInstance.get('/organization/person/'+id)
             .then((res) => {
                 setPersonData(res.data)
@@ -27,7 +32,7 @@ const ViewPerson = (props) => {
             .catch(() => {
                 setState(states.ERROR)
             })
-    }, [])
+    }
 
     const remove = () => {
         AxiosInstance.delete('/organization/person/'+id)
@@ -37,6 +42,13 @@ const ViewPerson = (props) => {
                 if(props.refresh) {
                     props.refresh()
                 }
+            })
+    }
+
+    const deleteDevice = (id) => {
+        AxiosInstance.delete('/devices/'+id)
+            .then(() => {
+                update()
             })
     }
 
@@ -68,10 +80,12 @@ const ViewPerson = (props) => {
                            </div>
                        </div>
 
+                       <div className="table-wrapper">
                        <table className="table">
                            <thead>
                            <tr>
                                <th><T id='viewPerson.table.mac'/></th>
+                               <th><T id='viewPerson.table.name'/></th>
                                <th><T id='viewPerson.table.lastActivity'/></th>
                                <th></th>
                            </tr>
@@ -86,6 +100,7 @@ const ViewPerson = (props) => {
                                                <div className="line light">{oui(device.mac) || '-'}</div>
                                            </div>
                                        </td>
+                                       <td>{device.name}</td>
                                        <td>
                                            {
                                                device.lastSeenDate && <>
@@ -95,8 +110,10 @@ const ViewPerson = (props) => {
                                            }
                                        </td>
                                        <td>
-                                           <div className="btn danger sm"><img src={'/img/icons/white/trash.svg'} alt="Trash icon"/>
-                                               <T id='viewPerson.removeDevice'/></div>
+                                           <div className="btn danger sm" onClick={() => deleteDevice(device._id)}>
+                                               <img src={'/img/icons/white/trash.svg'} alt="Trash icon"/>
+                                               <T id='viewPerson.removeDevice'/>
+                                           </div>
                                        </td>
                                    </tr>
                                )
@@ -104,6 +121,7 @@ const ViewPerson = (props) => {
                            </tbody>
 
                        </table>
+                       </div>
 
                        <div className="tools">
                            {/*

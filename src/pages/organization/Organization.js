@@ -1,8 +1,5 @@
-import React, {createRef} from "react";
+import React from "react";
 import T from "../../components/T";
-import faker from "faker/locale/cz";
-import Jdenticon from "react-jdenticon";
-import oui from "oui";
 import People from "./people";
 import BeaconsList from "./BeaconsList";
 import DeviceList from "./DevicesList";

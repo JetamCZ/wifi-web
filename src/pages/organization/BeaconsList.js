@@ -30,7 +30,7 @@ const BeaconsList = () => {
     const [viewBeaconId, setViewBeaconId] = useState(null)
 
     const createBeacon = () => {
-        AxiosInstance.post('/organization/beacon', newBeacon)
+        AxiosInstance.post('/beacons', newBeacon)
             .then((res) => {
                 modal.current.close()
                 getBeacons()
@@ -41,7 +41,7 @@ const BeaconsList = () => {
     }
 
     const getBeacons = () => {
-        AxiosInstance.get('/organization/beacon')
+        AxiosInstance.get('/beacons')
             .then((res) => {
                 setBeacons(res.data)
             })
@@ -49,6 +49,11 @@ const BeaconsList = () => {
 
     useEffect(() => {
         getBeacons()
+        const int = setInterval(getBeacons, 5000)
+
+        return function cleanup() {
+            clearInterval(int)
+        }
     }, [])
 
     const openView = (id) => {
@@ -58,6 +63,7 @@ const BeaconsList = () => {
 
     return (
         <>
+            <div className="table-wrapper">
             <table className="table">
                 <thead>
                 <tr>
@@ -104,6 +110,7 @@ const BeaconsList = () => {
                 </tfoot>
                 */}
             </table>
+            </div>
 
             <Modal ref={viewModal}>
                 <ViewBeacon id={viewBeaconId} refresh={getBeacons}/>
@@ -115,21 +122,21 @@ const BeaconsList = () => {
 
                 <div className="gap h-2"></div>
 
-                <label>
+                <label className="form-control">
                     <div className="title">Device key majáku</div>
                     <input type="text"
                            placeholder="Zadej device key"
                            onChange={(e) => setFormValue('deviceKey', e.target.value)}/>
                 </label>
 
-                <label>
+                <label className="form-control">
                     <div className="title">Název (jakékoli pojmenování)</div>
                     <input type="text"
                            placeholder="Zadej název"
                            onChange={(e) => setFormValue('name', e.target.value)}/>
                 </label>
 
-                <label>
+                <label className="form-control">
                     <div className="title">Popis umístění</div>
                     <input type="text"
                            placeholder="Zadej popis umístění majáku"

@@ -19,10 +19,10 @@ const ActivePeople = () => {
     useEffect(() => {
         update()
 
-        setInt(setInterval(update, 5000))
+        const interval = setInterval(update, 5000)
 
         return function cleanup() {
-            clearInterval(int)
+            clearInterval(interval)
         }
     }, [])
 

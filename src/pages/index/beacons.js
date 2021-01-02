@@ -8,10 +8,9 @@ import Modal from "../../components/Modal";
 
 const Beacons = () => {
     const [beacons, setBeacons] = useState(null)
-    const [int, setInt] = useState(null)
 
     const update = () => {
-        AxiosInstance.get('/organization/beacon')
+        AxiosInstance.get('/beacons')
             .then((res) => {
                 setBeacons(res.data)
             })
@@ -20,10 +19,10 @@ const Beacons = () => {
     useEffect(() => {
         update()
 
-        setInt(setInterval(update, 5000))
+        const interval = setInterval(update, 5000)
 
         return function cleanup() {
-            clearInterval(int)
+            clearInterval(interval)
         }
     }, [])
 
@@ -55,6 +54,7 @@ const Beacons = () => {
                                     <div className="name">
                                         {beacon.name}
                                     </div>
+                                    <div className="loc-desc">{beacon.desc}</div>
                                     <div className="desc">
                                         <span className="key">{beacon.deviceKey}</span> <br/>
                                         {beacon.lastSeenDate ? (

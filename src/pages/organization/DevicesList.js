@@ -1,4 +1,4 @@
-import React, {createRef, useState} from "react";
+import React, {createRef, useEffect, useState} from "react";
 import faker from "faker/locale/cz";
 import oui from "oui";
 import Jdenticon from "react-jdenticon";
@@ -28,9 +28,10 @@ const DeviceList = () => {
     const createDevice = () => {
         const auth = JSON.parse(window.localStorage.getItem("AUTH_USER"))
 
-        AxiosInstance.post('/organization/person/'+auth.user._id+'/device', newDevice)
+        AxiosInstance.post('/devices', newDevice)
             .then((res) => {
                 addModal.current.close()
+                getDevices()
             })
             .catch(() => {
 
@@ -38,23 +39,30 @@ const DeviceList = () => {
     }
 
     const getDevices = () => {
-        AxiosInstance.get('/organization/device')
+        AxiosInstance.get('/devices')
             .then((res) => {
                 setDevices(res.data)
             })
     }
 
-    useState(() => {
+    useEffect(() => {
         getDevices()
+        const int = setInterval(getDevices, 5000)
+
+        return function cleanup() {
+            clearInterval(int)
+        }
     }, [])
 
     return (
         <>
+            <div className="table-wrapper">
             <table className="table">
                 <thead>
                 <tr>
                     <th>Mac adresa</th>
                     <th>Vlastník</th>
+                    <th>Název</th>
                     <th>Poslední aktivita</th>
                     <th className="text-right">
                         <div className="btn sm success" onClick={() => {addModal.current.open()}}>Přidat další zařízení</div>
@@ -80,6 +88,7 @@ const DeviceList = () => {
                                     <div className="line light">{device.user.email}</div>
                                 </div>
                             </td>
+                            <td>{device.name}</td>
                             <td>
                                 {
                                     device.lastSeenDate ? formats.toHMSWords(new Date(device.lastSeenDate)) : "?"
@@ -110,6 +119,7 @@ const DeviceList = () => {
                 </tfoot>
                 */}
             </table>
+            </div>
 
             <Modal ref={addModal}>
                 <h1>Přidání nového zařízení</h1>
@@ -117,14 +127,14 @@ const DeviceList = () => {
 
                 <div className="gap h-2"></div>
 
-                <label>
+                <label className="form-control">
                     <div className="title">Název (jakékoli pojmenování)</div>
                     <input type="text"
                            placeholder="Zadej název"
                            onChange={(e) => setFormValue('name', e.target.value)}/>
                 </label>
 
-                <label>
+                <label className="form-control">
                     <div className="title">Mac adresa</div>
                     <input type="text"
                            placeholder="Zadej mac adresu"

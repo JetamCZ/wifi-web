@@ -41,7 +41,7 @@ const CreateOrg = () => {
                 )
             }
 
-            <label>
+            <label className="form-control">
                 <div className="title"><T id="page.auth.createNewOrg.input.name"/></div>
                 <input type="text" onChange={(e) => setName(e.target.value)}
                        placeholder={Translations.getId('page.auth.createNewOrg.input.name.placeholder')}/>

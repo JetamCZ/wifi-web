@@ -4,6 +4,7 @@ import Jdenticon from "react-jdenticon";
 import faker from "faker/locale/cz";
 import Translations from "../utils/Translations";
 import formats from "../utils/formats";
+import Map from "./maps/plans/Map";
 
 const CssPlayground = () => {
     return (
@@ -50,27 +51,36 @@ const CssPlayground = () => {
 
             <h2>Inputs</h2>
             <div className="cols cols-3">
-                <label>
+                <label className="form-control">
                     <div className="title">Jméno</div>
                     <input type="text"
                            placeholder="Zadej jméno"/>
                 </label>
 
-                <label>
+                <label className="form-control">
                     <div className="title">Heslo</div>
                     <input type="password"
                            placeholder="Zadej Heslo"/>
                 </label>
 
-                <label>
+                <label className="form-control">
                     <div className="title">číslo</div>
                     <input type="number"
                            placeholder="Zadej číslo"/>
                 </label>
+
+                <label className="form-control">
+                    <div className="title">select</div>
+                    <select name="" id="">
+                        <option value="">A</option>
+                        <option value="">B</option>
+                        <option value="">C</option>
+                    </select>
+                </label>
             </div>
 
             <div>
-                <label>
+                <label className="form-control">
                     <div className="title">Text area</div>
                     <textarea placeholder="Napiš mi tady text"/>
                 </label>
@@ -79,6 +89,7 @@ const CssPlayground = () => {
             <div className="gap h-5"></div>
 
             <h2>Tabulky</h2>
+            <div className="table-wrapper">
             <table className="table">
                 <thead>
                     <tr>
@@ -120,6 +131,37 @@ const CssPlayground = () => {
                 </tr>
                 </tfoot>
             </table>
+            </div>
+
+            <div className="gap h-5"></div>
+
+            <h2>Mapa</h2>
+            <Map layers={[
+                {
+                    name: "zahrada",
+                    image: "/img/maps/3.png",
+                    markers: [
+
+                    ]
+                },
+                {
+                    name: "přízemí",
+                    image: "/img/maps/5.png",
+                    markers: [
+                        {xy: [200, 200], color: "red", id: "m-123456789"},
+                        {xy: [200, 400], color: "red", id: "m-1254444897"}
+                    ]
+                },
+                {
+                    name: "první patro",
+                    image: "/img/maps/4.png",
+                    markers: [
+                        {xy: [100, 200], color: "blue", id: "m-45618"},
+                        {xy: [100, 400], color: "green", id: "m-654"}
+                    ]
+                },
+            ]}
+            />
 
             <div className="gap h-5"></div>
 

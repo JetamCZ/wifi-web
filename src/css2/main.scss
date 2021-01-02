@@ -38,7 +38,7 @@ h1 {
     text-align: right;
 }
 
-label {
+label.form-control {
     display: block;
     margin-bottom: 20px;
 
@@ -46,7 +46,7 @@ label {
         font-weight: 600;
     }
 
-    input, textarea {
+    input, textarea, select {
         box-sizing: border-box;
         width: 100%;
         border: 1px solid #e0e0e0;
@@ -71,6 +71,11 @@ label {
     textarea {
         resize: vertical;
     }
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    width: 100%;
 }
 
 .table {
@@ -162,7 +167,7 @@ label {
         min-height: 200px;
         max-height: 80vh;
         overflow-y: auto;
-        padding: 50px;
+        padding: 50px 15px;
 
         background-color: white;
 
@@ -185,6 +190,10 @@ label {
                 opacity: 0.3;
             }
         }
+
+        @media screen and (min-width: 950px){
+            padding: 50px;
+        }
     }
 }
 
@@ -202,7 +211,7 @@ label {
     }
 }
 
-.viewPerson, .viewBeacon {
+.viewPerson, .viewPlan, .modalView {
     .name {
         border-bottom: 1px solid #dedede;
         padding-bottom: 15px;
@@ -215,26 +224,73 @@ label {
         display: flex;
         align-items: center;
     }
+}
 
-    .tools {
-        text-align: right;
+.viewPlan {
+    .map {
+        height: 500px;
+        background-color: gray;
+    }
 
-        .item {
+    .leaflet-interactive {
+        transition: 0.5s;
+    }
+}
+
+.mini-beaconView, .mini-deviceView {
+    .title {
+        font-size: 12px;
+
+        .name {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+
+        .key {
+            color: gray;
+        }
+    }
+
+    .summary-title {
+        font-weight: 700;
+    }
+
+    p {
+        margin: 0;
+    }
+}
+
+.tools {
+    text-align: right;
+
+    .item {
+        display: inline-block;
+        margin-left: 20px;
+        vertical-align: middle;
+        cursor: pointer;
+
+        img {
             display: inline-block;
-            margin-left: 20px;
             vertical-align: middle;
-            cursor: pointer;
+            height: 15px;
+            margin-right: 6px;
+        }
 
-            img {
-                display: inline-block;
-                vertical-align: middle;
-                height: 15px;
-                margin-right: 6px;
-            }
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}
 
-            &:hover {
-                opacity: 0.8;
-            }
+.edit-beacon-pos {
+    .act-beacon {
+        margin-top: 15px;
+        background-color: #f5f6f9;
+        padding: 15px 20px;
+
+        h3 {
+            margin-bottom: 0;
         }
     }
 }

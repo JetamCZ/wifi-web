@@ -19,6 +19,11 @@ const People = () => {
 
     useEffect(() => {
         update()
+        const int = setInterval(update, 5000)
+
+        return function cleanup() {
+            clearInterval(int)
+        }
     }, [])
 
     const update = () => {
@@ -35,6 +40,7 @@ const People = () => {
 
     return (
         <>
+            <div className="table-wrapper">
             <table className="table">
                 <thead>
                 <tr>
@@ -78,6 +84,7 @@ const People = () => {
                 </tfoot>
                 */}
             </table>
+            </div>
 
             <Modal ref={modal}>
                 <h1><T id='page.pageOrganization.members.modal.title'/></h1>

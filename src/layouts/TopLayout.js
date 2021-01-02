@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import T from "../components/T";
 import {Link, useHistory} from "react-router-dom";
 import Jdenticon from 'react-jdenticon';
@@ -7,6 +7,8 @@ import UserController from "../controllers/UserController";
 
 const TopLayout = (props) => {
     const auth = JSON.parse(window.localStorage.getItem("AUTH_USER"))
+
+    const [menuOpen, setMenuOpen] = useState(false)
 
     let history = useHistory();
 
@@ -32,7 +34,8 @@ const TopLayout = (props) => {
                             </div>
                         </div>
                     </Link>
-                    <div className="menu">
+
+                    <div className={menuOpen ? "menu mobile-open" :  "menu mobile-close"}>
                         <div className="item">
                             <Link to="/"><T id="component.nav.dashboard"/></Link>
                         </div>
@@ -40,7 +43,7 @@ const TopLayout = (props) => {
                             <Link to="/organization"><T id="component.nav.organization"/></Link>
                         </div>
                         <div className="item">
-                            <Link to="/devices"><T id="component.nav.devices"/></Link>
+                            <Link to="/maps"><T id="component.nav.maps"/></Link>
                         </div>
                         {
                             auth &&
@@ -58,6 +61,10 @@ const TopLayout = (props) => {
                                 </div>
                             </div>
                         }
+                    </div>
+
+                    <div className="mobile-menu" onClick={() => setMenuOpen(!menuOpen)}>
+                        <img src="/img/icons/menu.svg" alt="Menu icon"/>
                     </div>
                 </div>
             </div>

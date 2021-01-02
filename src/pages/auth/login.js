@@ -43,7 +43,7 @@ const LoginPage = () => {
             }
 
 
-            <label>
+            <label className="form-control">
                 <div className="title"><T id="page.auth.login.input.email"/></div>
                 <input type="text"
                        onChange={(e) => setEmail(e.target.value)}
@@ -52,7 +52,7 @@ const LoginPage = () => {
                        placeholder={Translations.getId('page.auth.login.input.email.placeholder')}/>
             </label>
 
-            <label>
+            <label className="form-control">
                 <div className="title"><T id="page.auth.login.input.password"/></div>
                 <input type="password"
                        onChange={(e) => setPassword(e.target.value)}
