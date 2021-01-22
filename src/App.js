@@ -1,17 +1,14 @@
-import React from 'react';
-import './css/normalize.css';
-import './css2/main.scss';
+import React from "react";
 
-import './css/animations/all.scss';
-import './css/animate.min.css';
+import "./css/normalize.css";
+import "./css/main.scss";
+import "./css/main.scss";
 
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-} from "react-router-dom";
-import Error404 from "./pages/404";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import TopLayout from "./layouts/TopLayout";
+
+import Error404 from "./pages/404";
 import Settings from "./pages/settings";
 import DashBoard from "./pages/dashboard";
 import AuthLayout from "./layouts/AuthLayout";
@@ -24,97 +21,69 @@ import MapList from "./pages/maps/MapList";
 import LocalizationView from "./pages/maps/LocalizationView";
 
 const App = () => {
-    return (
-        <Router>
-            <Switch>
-                <Route path="/" exact>
-                    <TopLayout>
-                        <DashBoard/>
-                    </TopLayout>
-                </Route>
+  return (
+    <Router>
+      <Switch>
+        <Route path="/" exact>
+          <TopLayout>
+            <DashBoard />
+          </TopLayout>
+        </Route>
 
-                <Route path="/organization">
-                    <TopLayout>
-                        <Organization/>
-                    </TopLayout>
-                </Route>
+        <Route path="/organization">
+          <TopLayout>
+            <Organization />
+          </TopLayout>
+        </Route>
 
-                <Route path="/css">
-                    <TopLayout>
-                        <CssPlayground/>
-                    </TopLayout>
-                </Route>
+        <Route path="/css">
+          <TopLayout>
+            <CssPlayground />
+          </TopLayout>
+        </Route>
 
-                <Route path="/settings">
-                    <TopLayout>
-                        <Settings/>
-                    </TopLayout>
-                </Route>
+        <Route path="/settings">
+          <TopLayout>
+            <Settings />
+          </TopLayout>
+        </Route>
 
-                <Route path="/maps/:id">
-                    <TopLayout>
-                        <LocalizationView/>
-                    </TopLayout>
-                </Route>
+        <Route path="/maps/:id">
+          <TopLayout>
+            <LocalizationView />
+          </TopLayout>
+        </Route>
 
-                <Route path="/maps">
-                    <TopLayout>
-                        <MapList/>
-                    </TopLayout>
-                </Route>
+        <Route path="/maps">
+          <TopLayout>
+            <MapList />
+          </TopLayout>
+        </Route>
 
-                {/*
-                <Route path="/devices/:macAddress">
-                    <MainLayout title={<Text id={'menu.devices'}>Zařízení</Text>}>
-                        <Device/>
-                    </MainLayout>
-                </Route>
-                <Route path="/devices">
-                    <MainLayout title={<Text id={'menu.devices'}>Zařízení</Text>}>
-                        <Devices/>
-                    </MainLayout>
-                </Route>
-                <Route path="/beacons">
-                    <MainLayout title={<Text id={'menu.beacons'}>Majáky</Text>}>
-                        <Beacons/>
-                    </MainLayout>
-                </Route>
-                <Route path="/maps">
-                    <MainLayout title={<Text id={'menu.maps'}>Maps</Text>}>
-                        <Maps/>
-                    </MainLayout>
-                </Route>
-                <Route path="/map/:id/print/:mac">
+        <Route path="/auth/create-org">
+          <AuthLayout>
+            <CreateOrg />
+          </AuthLayout>
+        </Route>
 
-                </Route>
-                <Route path="/map/:id">
-                    <BigMap/>
-                </Route>
-                */}
-                <Route path="/auth/create-org">
-                    <AuthLayout>
-                        <CreateOrg/>
-                    </AuthLayout>
-                </Route>
+        <Route path="/auth/register/:code">
+          <AuthLayout>
+            <Register />
+          </AuthLayout>
+        </Route>
 
-                <Route path="/auth/register/:code">
-                    <AuthLayout>
-                        <Register/>
-                    </AuthLayout>
-                </Route>
+        <Route path="/auth">
+          <AuthLayout>
+            <LoginPage />
+          </AuthLayout>
+        </Route>
 
-                <Route path="/auth">
-                    <AuthLayout>
-                        <LoginPage/>
-                    </AuthLayout>
-                </Route>
-
-                <Route path='*'>
-                    <Error404/>
-                </Route>
-            </Switch>
-        </Router>
-    );
-}
+        <Route path="*">
+          <Error404 />
+        </Route>
+      </Switch>
+    </Router>
+  );
+};
 
 export default App;

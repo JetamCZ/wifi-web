@@ -1,0 +1,32 @@
+.page-404 {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  height: 100%;
+
+  .box {
+    max-width: 800px;
+    width: 100%;
+    height: fit-content;
+
+    img {
+      height: 200px;
+      margin-bottom: 30px;
+    }
+
+    h1,
+    p {
+      margin: 0;
+    }
+
+    p {
+      margin-top: 5px;
+    }
+
+    .link {
+      margin-top: 40px;
+    }
+  }
+}

@@ -5,19 +5,24 @@ import BeaconsList from "./BeaconsList";
 import DeviceList from "./DevicesList";
 
 const Organization = () => {
-    return (
-        <div className="page-organization container">
-            <h1><T id="page.pageOrganization.members"/></h1>
-            <People/>
+  return (
+    <div className="page-organization container">
+      <h1>
+        <T id="page.pageOrganization.members" />
+      </h1>
+      <People />
 
-            <h1><T id="page.pageOrganization.devices"/></h1>
-            <DeviceList/>
+      <h1>
+        <T id="page.pageOrganization.devices" />
+      </h1>
+      <DeviceList />
 
-            <h1><T id="page.pageOrganization.beacons"/></h1>
-            <BeaconsList/>
+      <h1>
+        <T id="page.pageOrganization.beacons" />
+      </h1>
+      <BeaconsList />
+    </div>
+  );
+};
 
-        </div>
-    )
-}
-
-export default Organization
+export default Organization;

@@ -1,52 +1,59 @@
 import React from "react";
 import Text from "../../components/Text";
 import Format from "../../utils/formats";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Table = (props) => {
-    return (
-        <>
-            <div className="devices-frame">
-                {props.devices.map((device, index) => (
-                    <Link to={'/devices/' + device.mac} className="link-clear">
-                        <div className='device shadow'>
-                            <div className="body">
-                                <div className="name">
-                                    {
-                                        device.name ? (
-                                            device.name
-                                        ) : (
-                                            <span className="text-gray-400"><Text id={'page-devices.table.unknown-name'}>Neznámý název</Text></span>
-                                        )}
-                                </div>
-                                <div className="mac">{device.mac}</div>
+  return (
+    <>
+      <div className="devices-frame">
+        {props.devices.map((device, index) => (
+          <Link to={"/devices/" + device.mac} className="link-clear">
+            <div className="device shadow">
+              <div className="body">
+                <div className="name">
+                  {device.name ? (
+                    device.name
+                  ) : (
+                    <span className="text-gray-400">
+                      <Text id={"page-devices.table.unknown-name"}>
+                        Neznámý název
+                      </Text>
+                    </span>
+                  )}
+                </div>
+                <div className="mac">{device.mac}</div>
 
-                                <table className="rssi">
-                                    {device.lastSeens.map(seen =>
-                                        <tr>
-                                            <td>{seen.deviceKey}</td>
-                                            <td>{Format.diff(new Date(seen.date))}</td>
-                                            <td>{seen.rssi} RSI</td>
-                                        </tr>
-                                    )}
-                                </table>
-                            </div>
+                <table className="rssi">
+                  {device.lastSeens.map((seen) => (
+                    <tr>
+                      <td>{seen.deviceKey}</td>
+                      <td>{Format.diff(new Date(seen.date))}</td>
+                      <td>{seen.rssi} RSI</td>
+                    </tr>
+                  ))}
+                </table>
+              </div>
 
-                            <div className="bottom">
-                                <div className="vendor">
-                                    {
-                                        device.vendor
-                                            ? device.vendor.substr(0, 20)+"..."
-                                            : <span className="text-gray-400"><Text id={'page-devices.table.unknown-vendor'}>Neznámý výrobce</Text></span>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </Link>
-                ))}
+              <div className="bottom">
+                <div className="vendor">
+                  {device.vendor ? (
+                    device.vendor.substr(0, 20) + "..."
+                  ) : (
+                    <span className="text-gray-400">
+                      <Text id={"page-devices.table.unknown-vendor"}>
+                        Neznámý výrobce
+                      </Text>
+                    </span>
+                  )}
+                </div>
+              </div>
             </div>
+          </Link>
+        ))}
+      </div>
 
-            {/*
+      {/*
         <table className="table shadow">
             <thead>
             <tr>
@@ -95,9 +102,8 @@ const Table = (props) => {
             </tbody>
         </table>
         */}
+    </>
+  );
+};
 
-        </>
-    )
-}
-
-export default Table
+export default Table;

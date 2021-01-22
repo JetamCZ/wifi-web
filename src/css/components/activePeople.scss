@@ -1,0 +1,46 @@
+.com-activePeople .people {
+  display: flex;
+  flex-wrap: wrap;
+
+  .person {
+    background: rgb(42, 222, 184);
+    background: linear-gradient(
+      56deg,
+      rgba(42, 222, 184, 1) 0%,
+      rgba(45, 253, 209, 1) 69%
+    );
+
+    max-width: 290px;
+    margin: 10px 5px;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+
+    box-shadow: $shadow;
+
+    .avatar {
+      display: inline-block;
+      background-color: white;
+
+      border-radius: 10%;
+      overflow: hidden;
+      height: 50px;
+      width: 50px;
+
+      img {
+        height: 100%;
+      }
+    }
+
+    .info {
+      width: calc(100% - 100px);
+      margin-left: 20px;
+      display: inline-block;
+      vertical-align: top;
+
+      .name {
+        font-weight: 600;
+      }
+    }
+  }
+}

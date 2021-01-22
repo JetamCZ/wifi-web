@@ -1,0 +1,70 @@
+.page-organization {
+  .generateInv {
+    width: fit-content;
+    max-width: 80%;
+    overflow-x: auto;
+    margin: 80px auto 20px auto;
+
+    background-color: #f1f1f1;
+    padding: 10px 20px;
+
+    &.click-me {
+      cursor: pointer;
+    }
+  }
+
+  .status {
+    display: inline-block;
+    margin-left: 5px;
+    color: red;
+
+    &::before {
+      content: " ";
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      border-radius: 50%;
+      margin-right: 2px;
+    }
+
+    &.offline {
+      color: red;
+
+      &::before {
+        background: rgb(208, 37, 37);
+        background: linear-gradient(
+          56deg,
+          rgba(208, 37, 37, 1) 0%,
+          rgba(253, 45, 45, 1) 69%
+        );
+      }
+    }
+
+    &.online {
+      color: rgb(45, 219, 56);
+
+      &::before {
+        background: rgb(45, 219, 56);
+        background: linear-gradient(
+          56deg,
+          rgba(45, 219, 56, 1) 0%,
+          rgba(53, 253, 45, 1) 69%
+        );
+      }
+    }
+
+    &.warning {
+      color: rgb(219, 197, 45);
+
+      &::before {
+        background: rgb(219, 197, 45);
+        background: linear-gradient(
+          56deg,
+          rgba(219, 197, 45, 1) 0%,
+          rgba(253, 226, 45, 1) 69%
+        );
+      }
+    }
+  }
+}
