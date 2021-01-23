@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import AxiosInstance from "../../utils/AxiosInstance";
 import T from "../../components/T";
 import Modal from "../../components/Modal";
+import Marker from "./plans/Marker";
+import beaconIcon from "./plans/icons/beaconIncon";
 
 const ChangeBeaconsPos = (props) => {
   const states = {
@@ -18,6 +20,8 @@ const ChangeBeaconsPos = (props) => {
   const [modData, setModData] = useState(null);
 
   const [actBeacon, setActBeacon] = useState(null);
+
+  const map = useRef()
 
   const { id } = props;
 
@@ -51,37 +55,6 @@ const ChangeBeaconsPos = (props) => {
 
       layer.markers = [];
 
-      beacons.forEach((b) => {
-        layer.markers.push({
-          xy: [b.y, b.x],
-          color: "red",
-          id: b._id,
-          type: "beacon",
-          popup: (
-            <div className="mini-beaconView">
-              <div className="title">
-                <div className="name">{b.name}</div>
-                <div className="key">{b.deviceKey}</div>
-                <br />
-                <div className="summary-title">Popis umístění:</div>
-                <p>{b.desc || "..."}</p>
-              </div>
-            </div>
-          ),
-          dragEnd: (value) => {
-            const newMod = { ...modData };
-            newMod.beacons.find((beacon) => beacon._id === b._id).x =
-              value.target._latlng.lng;
-            newMod.beacons.find((beacon) => beacon._id === b._id).y =
-              value.target._latlng.lat;
-            setModData(newMod);
-          },
-          clicked: (e) => {
-            setActBeacon(b);
-          },
-        });
-      });
-
       delete layer._id;
     }
 
@@ -95,6 +68,19 @@ const ChangeBeaconsPos = (props) => {
       props.afterSave();
     });
   };
+
+  const handleDragEnd = (b, value) => {
+      const newMod = { ...modData };
+      newMod.beacons.find((beacon) => beacon._id === b._id).x =
+          value.target._latlng.lng;
+      newMod.beacons.find((beacon) => beacon._id === b._id).y =
+          value.target._latlng.lat;
+      setModData(newMod);
+  }
+
+  const handleClick = (b) => {
+      setActBeacon(b);
+  }
 
   return (
     <div className="container edit-beacon-pos">
@@ -118,7 +104,26 @@ const ChangeBeaconsPos = (props) => {
 
           <div className="gap h-2"></div>
 
-          <Map layers={getMapData(data.plan)} changingPos />
+          <Map layers={getMapData(data.plan)} ref={map}>
+            {
+              data?.beacons.map(beacon =>
+                  <Marker key={beacon._id} mapRef={map} pos={[beacon.x, beacon.y, beacon.f]} icon={beaconIcon} draggable
+                          dragend={(value) => handleDragEnd(beacon, value)}
+                          onClick={(value) => handleClick(beacon)}
+                  >
+                    <div className="mini-beaconView">
+                      <div className="title">
+                        <div className="name">{beacon.name}</div>
+                        <div className="key">{beacon.deviceKey}</div>
+                        <br />
+                        <div className="summary-title">Popis umístění:</div>
+                        <p>{beacon.desc ?? "..."}</p>
+                      </div>
+                    </div>
+                  </Marker>
+              )
+            }
+          </Map>
 
           {actBeacon && (
             <div className="act-beacon">

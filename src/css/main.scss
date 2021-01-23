@@ -381,6 +381,13 @@ label.form-control {
   }
 }
 
+.easy-button-button {
+  img {
+    width: 18px;
+    margin: 5px 0;
+  }
+}
+
 @import "components/loading";
 @import "components/btn";
 @import "components/modal";

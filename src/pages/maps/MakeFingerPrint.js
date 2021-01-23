@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {createRef, useEffect, useRef, useState} from "react";
 import Map from "./plans/Map";
 import { useParams } from "react-router-dom";
 import AxiosInstance from "../../utils/AxiosInstance";
@@ -6,6 +6,8 @@ import T from "../../components/T";
 import Modal from "../../components/Modal";
 import faker from "faker/locale/cz";
 import formats from "../../utils/formats";
+import Marker from "./plans/Marker";
+import moveIcon from "./plans/icons/moveIcon";
 
 let interval = null;
 
@@ -41,6 +43,8 @@ const MakeFingerPrint = (props) => {
     f: 0,
   });
 
+  const map = createRef()
+
   const { id } = props;
 
   useEffect(() => {
@@ -74,21 +78,6 @@ const MakeFingerPrint = (props) => {
       const layer = layers[i];
 
       layer.markers = [];
-
-      if (point.f === layer.floor) {
-        layer.markers.push({
-          xy: [point.y, point.x],
-          id: "finger-point-set",
-          type: "move",
-          dragEnd: (value) => {
-            setPoint({
-              ...point,
-              x: value.target._latlng.lng,
-              y: value.target._latlng.lat,
-            });
-          },
-        });
-      }
 
       delete layer._id;
     }
@@ -178,7 +167,15 @@ const MakeFingerPrint = (props) => {
 
               <div className="gap h-2"></div>
 
-              <Map layers={getMapData(data.plan)} changingPos />
+              <Map layers={getMapData(data.plan)} ref={map}>
+                <Marker mapRef={map} pos={[point.x, point.y, point.f]} icon={moveIcon} draggable={true} dragend={(value) => {
+                  setPoint({
+                    ...point,
+                    x: value.target._latlng.lng,
+                    y: value.target._latlng.lat,
+                  });
+                }}/>
+              </Map>
 
               <div className="act-beacon">
                 <h3>Nový fingerprint ({point.mac})</h3>

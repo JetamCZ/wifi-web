@@ -7,9 +7,12 @@ import Modal from "../../components/Modal";
 import ChangeBeaconsPos from "./ChangeBeaconPos";
 import MakeFingerPrint from "./MakeFingerPrint";
 import { useHistory } from "react-router-dom";
-import io from "socket.io-client";
-import config from "../../config";
-import UserController from "../../controllers/UserController";
+import Marker from "./plans/Marker";
+import beaconIcon from "./plans/icons/beaconIncon";
+import deviceIcon from "./plans/icons/deviceIcon";
+import L from "leaflet"
+import "leaflet-easybutton"
+import "leaflet-easybutton/src/easy-button.css"
 
 const LocalizationView = () => {
   const states = {
@@ -29,11 +32,13 @@ const LocalizationView = () => {
   const deleteModal = useRef();
 
   const history = useHistory();
+  const map = useRef()
 
   useEffect(() => {
     update();
     const interval = setInterval(update, 5000);
 
+    /*
     const socket = io(config.socketServer);
 
     socket.on("handshake", () => {
@@ -47,9 +52,11 @@ const LocalizationView = () => {
       setData(data);
     });
 
+     */
+
     return function cleanup() {
       clearInterval(interval);
-      socket.disconnect();
+      //socket.disconnect();
     };
   }, []);
 
@@ -64,50 +71,13 @@ const LocalizationView = () => {
       });
   };
 
-  const getMapData = (d) => {
+  const getLayers = (d) => {
     const layers = { ...d }.floors;
 
     for (let i = 0; i < layers.length; i++) {
       const layer = layers[i];
-      const beacons = data.beacons.filter((b) => b.f === layer.floor);
 
       layer.markers = [];
-
-      beacons.forEach((b) => {
-        layer.markers.push({
-          xy: [b.y, b.x],
-          id: b._id,
-          type: "beacon",
-          popup: (
-            <div className="mini-beaconView">
-              <div className="title">
-                <div className="name">{b.name}</div>
-                <div className="key">{b.deviceKey}</div>
-                <br />
-                <div className="summary-title">Popis umístění:</div>
-                <p>{b.desc || "..."}</p>
-              </div>
-            </div>
-          ),
-        });
-      });
-
-      const devices = data.devices.filter((d) => d.f === layer.floor);
-      devices.forEach((device) => {
-        layer.markers.push({
-          xy: [device.y, device.x],
-          type: "device",
-          id: "device-" + device.mac,
-          popup: (
-            <div className="mini-deviceView">
-              <div className="title">
-                <div className="name">{device.name}</div>
-                <div className="key">{device.mac}</div>
-              </div>
-            </div>
-          ),
-        });
-      });
 
       delete layer._id;
       //delete layer.floor
@@ -143,36 +113,54 @@ const LocalizationView = () => {
             </div>
           </div>
 
-          <Map layers={getMapData(data.plan)} />
+          <Map layers={getLayers(data.plan)} ref={map} afterInit={(remap) => {
+
+            ["NEAREST_FINGERPRINT"].includes(data.type) &&
+              L.easyButton('<img src="/img/icons/crosshair.svg" alt="Make fingerprint" />', () => {
+                setFingerPrintModal.current.open()
+              }, "Make new fingerprint").addTo(remap);
+
+            ["NEAREST_FINGERPRINT"].includes(data.type) &&
+              L.easyButton('<img src="/img/icons/edit.svg" alt="Edit position of beacons" />', () => {
+                changeBeaconsPosModal.current.open();
+              }, "Edit beacons positions").addTo(remap);
+
+          }}>
+            <>
+            {
+              data.beacons.map(beacon =>
+                    <Marker key={beacon._id} pos={[beacon.x, beacon.y, beacon.f]} icon={beaconIcon} mapRef={map} beacon={beacon}>
+                        <div className="mini-beaconView">
+                            <div className="title">
+                                <div className="name">{beacon.name}</div>
+                                <div className="key">{beacon.deviceKey}</div>
+                                <br/>
+                                <div className="summary-title">Popis umístění:</div>
+                                <p>{beacon.desc ?? "..."}</p>
+                            </div>
+                        </div>
+                    </Marker>
+              )
+            }
+                {
+                    data.devices.map(device =>
+                        <Marker key={device.mac} pos={[device.x, device.y, device.f]} icon={deviceIcon} mapRef={map}>
+                            <div className="mini-deviceView">
+                                <div className="title">
+                                    <div className="name">{device.name}</div>
+                                    <div className="key">{device.mac}</div>
+                                </div>
+                            </div>
+                        </Marker>
+                    )
+                }
+            </>
+
+
+          </Map>
 
           <div className="tools">
-            {data.type === "NEAREST_FINGERPRINT" && (
-              <>
-                <div
-                  className="item"
-                  onClick={() => {
-                    setFingerPrintModal.current.open();
-                  }}
-                >
-                  <img
-                    src={"/img/icons/crosshair.svg"}
-                    alt="Make fingerprint"
-                  />
-                  Přidat fingerprint
-                </div>
-                <div
-                  className="item"
-                  onClick={() => {
-                    changeBeaconsPosModal.current.open();
-                  }}
-                >
-                  <img src={"/img/icons/edit.svg"} alt="Edit icon" />
-                  Editovat pozice majáků
-                </div>
-              </>
-            )}
-            <div
-              className="item"
+            <div className="item"
               onClick={() => {
                 deleteModal.current.open();
               }}

@@ -3,7 +3,6 @@ import T from "../../components/T";
 import Translations from "../../utils/Translations";
 import { Link } from "react-router-dom";
 import AxiosInstance from "../../utils/AxiosInstance";
-import jwt_decode from "jwt-decode";
 import { useHistory } from "react-router-dom";
 import UserController from "../../controllers/UserController";
 

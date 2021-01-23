@@ -3,7 +3,6 @@ import AxiosInstance from "../utils/AxiosInstance";
 import T from "./T";
 import Jdenticon from "react-jdenticon";
 import formats from "../utils/formats";
-import faker from "faker/locale/cz";
 import oui from "oui";
 
 const ViewPerson = (props) => {
