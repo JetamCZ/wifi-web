@@ -1,22 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
-import LanguageContextProvider from "./contexts/LanguageContextProvider";
-import StatusBarProvider from "./contexts/StatusBarProvider";
+import React from "react"
+import ReactDOM from "react-dom"
+import App from "./App"
+import * as serviceWorker from "./serviceWorker"
+import LanguageContextProvider from "./contexts/LanguageContextProvider"
+import StatusBarProvider from "./contexts/StatusBarProvider"
 
 ReactDOM.render(
-  <React.StrictMode>
-    <StatusBarProvider>
-      <LanguageContextProvider>
-        <App />
-      </LanguageContextProvider>
-    </StatusBarProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+    <React.StrictMode>
+        <StatusBarProvider>
+            <LanguageContextProvider>
+                <App />
+            </LanguageContextProvider>
+        </StatusBarProvider>
+    </React.StrictMode>,
+    document.getElementById("root")
+)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.unregister()

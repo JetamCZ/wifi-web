@@ -1,12 +1,12 @@
 import React from "react"
-import L from "leaflet";
-import PropTypes from 'prop-types';
-import jsxToString from "jsx-to-string";
-import otherIcon from "./icons/otherIcon";
+import L from "leaflet"
+import PropTypes from "prop-types"
+import jsxToString from "jsx-to-string"
+import otherIcon from "./icons/otherIcon"
 
 class Marker extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
 
         this.initInt = setInterval(this.init.bind(this), 100)
         this.showHideInt = undefined
@@ -30,25 +30,21 @@ class Marker extends React.Component {
                 draggable: this.props.draggable ?? false
             })
 
-            if(this.props.dragend) {
+            if (this.props.dragend) {
                 this.marker.on("dragend", this.props.dragend)
             }
 
-            if(this.props.onClick) {
+            if (this.props.onClick) {
                 this.marker.on("click", this.props.onClick)
             }
 
-            if(this.props.children) {
-                const popup = jsxToString(this.props.children)
-                    .replaceAll(
-                        "className=",
-                        "class="
-                    )
+            if (this.props.children) {
+                const popup = jsxToString(this.props.children).replaceAll("className=", "class=")
 
                 this.marker.bindPopup(popup)
             }
 
-            this.oms.addMarker(this.marker);
+            this.oms.addMarker(this.marker)
 
             this.showHideInt = setInterval(this.showHideByLayer.bind(this), 100)
         }
@@ -56,7 +52,7 @@ class Marker extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.marker) {
-            this.marker.setLatLng([this.props.pos[1], this.props.pos[0]]);
+            this.marker.setLatLng([this.props.pos[1], this.props.pos[0]])
             this.oldLayer = null
         }
     }
@@ -66,9 +62,9 @@ class Marker extends React.Component {
 
         if (layer !== this.oldLayer) {
             if (this.props.pos[2] === layer) {
-                this.map.addLayer(this.marker);
+                this.map.addLayer(this.marker)
             } else {
-                this.map.removeLayer(this.marker);
+                this.map.removeLayer(this.marker)
             }
         }
 
@@ -76,12 +72,12 @@ class Marker extends React.Component {
     }
 
     componentWillUnmount() {
-        this.initInt && clearInterval(this.initInt);
-        this.showHideInt && clearInterval(this.showHideInt);
+        this.initInt && clearInterval(this.initInt)
+        this.showHideInt && clearInterval(this.showHideInt)
     }
 
     render() {
-        return (<></>)
+        return <></>
     }
 }
 

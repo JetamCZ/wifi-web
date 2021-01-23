@@ -1,31 +1,31 @@
 .loading {
-  background-color: white;
-  box-shadow: $shadow;
-  width: 100%;
-  margin: 10px 0;
-  box-sizing: border-box;
-  padding: 80px 0;
-  color: #a3a3a3;
+    background-color: white;
+    box-shadow: $shadow;
+    width: 100%;
+    margin: 10px 0;
+    box-sizing: border-box;
+    padding: 80px 0;
+    color: #a3a3a3;
 
-  &.isError {
-    color: #fe7979;
-    font-weight: 600;
-    font-size: 1.5em;
-    letter-spacing: 1px;
-  }
+    &.isError {
+        color: #fe7979;
+        font-weight: 600;
+        font-size: 1.5em;
+        letter-spacing: 1px;
+    }
 
-  .center {
-    text-align: center;
-  }
+    .center {
+        text-align: center;
+    }
 
-  svg {
-    height: 50px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 5px;
-  }
+    svg {
+        height: 50px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
 
-  .loading-title {
-    display: inline-block;
-  }
+    .loading-title {
+        display: inline-block;
+    }
 }

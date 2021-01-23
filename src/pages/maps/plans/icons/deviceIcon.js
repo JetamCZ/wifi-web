@@ -1,4 +1,4 @@
-import L from "leaflet";
+import L from "leaflet"
 
 const deviceIcon = L.icon({
     iconUrl: "/img/pins/device-pin.png",
@@ -8,7 +8,7 @@ const deviceIcon = L.icon({
     shadowSize: [72, 33], // size of the shadow
     iconAnchor: [16, 37], // point of the icon which will correspond to marker's location
     shadowAnchor: [36, 32], // the same for the shadow
-    popupAnchor: [0, -27], // point from which the popup should open relative to the iconAnchor
-});
+    popupAnchor: [0, -27] // point from which the popup should open relative to the iconAnchor
+})
 
 export default deviceIcon

@@ -1,19 +1,18 @@
-import React from "react";
-import T from "../components/T";
+import React from "react"
+import T from "../components/T"
 
 const AuthLayout = (props) => {
-  return (
-    <div className="auth-layout">
-      <h1>Locate.io</h1>
-      <div className="content">{props.children}</div>
-      <div className="sign">
-        <T id="components.authFooter.firstLine" />
-        <br />
-        <T id="components.authFooter.secondLine" /> -{" "}
-        <span className="name">Matěj Půhoný</span> 2020- 2021
-      </div>
-    </div>
-  );
-};
+    return (
+        <div className="auth-layout">
+            <h1>Locate.io</h1>
+            <div className="content">{props.children}</div>
+            <div className="sign">
+                <T id="components.authFooter.firstLine" />
+                <br />
+                <T id="components.authFooter.secondLine" /> - <span className="name">Matěj Půhoný</span> 2020- 2021
+            </div>
+        </div>
+    )
+}
 
-export default AuthLayout;
+export default AuthLayout
