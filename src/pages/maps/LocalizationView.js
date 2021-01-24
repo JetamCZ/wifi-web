@@ -6,13 +6,16 @@ import { useParams } from "react-router-dom"
 import Modal from "../../components/Modal"
 import ChangeBeaconsPos from "./ChangeBeaconPos"
 import MakeFingerPrint from "./MakeFingerPrint"
-import { useHistory } from "react-router-dom"
 import Marker from "./plans/Marker"
 import beaconIcon from "./plans/icons/beaconIncon"
 import deviceIcon from "./plans/icons/deviceIcon"
 import L from "leaflet"
 import "leaflet-easybutton"
 import "leaflet-easybutton/src/easy-button.css"
+import VectorSelect from "./plans/VectorSelect";
+import DeleteModal from "./LocalizationView/DeleteModal";
+import Polygon from "./plans/Polygon";
+import EditRoomModal from "./LocalizationView/EditRoomsModal";
 
 const LocalizationView = () => {
     const states = {
@@ -24,14 +27,15 @@ const LocalizationView = () => {
 
     const [state, setState] = useState(states.LOADING)
     const [data, setData] = useState(null)
+    const [showRooms, setShowRooms] = useState(false)
 
     const { id } = useParams()
 
     const changeBeaconsPosModal = useRef()
     const setFingerPrintModal = useRef()
     const deleteModal = useRef()
+    const editRoomsModal = useRef()
 
-    const history = useHistory()
     const map = useRef()
 
     useEffect(() => {
@@ -86,14 +90,38 @@ const LocalizationView = () => {
         return layers
     }
 
+    if(state === states.ERROR) {
+        return (
+            <div className="container">
+                <h1>
+                    <T id="error" />
+                </h1>
+            </div>
+        )
+    }
+
+    if(state === states.DELETED) {
+        return (
+            <div className="container">
+                <h1>
+                    <T id="viewBeacon.deleted" />
+                </h1>
+            </div>
+        )
+    }
+
+    if(state === states.LOADING) {
+        return (
+            <div className="container">
+                <h1>
+                    <T id="loading" />
+                </h1>
+            </div>
+        )
+    }
+
     return (
         <div className="container">
-            {state === states.LOADING && (
-                <h2>
-                    <T id="loading" />
-                </h2>
-            )}
-
             {data && state === states.DONE && (
                 <>
                     <h1 className="name">{data.name}</h1>
@@ -117,22 +145,58 @@ const LocalizationView = () => {
                         layers={getLayers(data.plan)}
                         ref={map}
                         afterInit={(remap) => {
-                            ;["NEAREST_FINGERPRINT"].includes(data.type) &&
+                            if(["NEAREST_FINGERPRINT"].includes(data.type)) {
                                 L.easyButton(
-                                    '<img src="/img/icons/crosshair.svg" alt="Make fingerprint" />',
+                                    '<img src="/img/icons/crosshair-add.svg" alt="Make fingerprint" />',
                                     () => {
                                         setFingerPrintModal.current.open()
                                     },
                                     "Make new fingerprint"
                                 ).addTo(remap)
-                            ;["NEAREST_FINGERPRINT"].includes(data.type) &&
+                            }
+
+                            if(["NEAREST_FINGERPRINT"].includes(data.type)) {
                                 L.easyButton(
-                                    '<img src="/img/icons/edit.svg" alt="Edit position of beacons" />',
+                                    '<img src="/img/icons/wifi-edit.svg" alt="Edit position of beacons" />',
                                     () => {
                                         changeBeaconsPosModal.current.open()
                                     },
                                     "Edit beacons positions"
                                 ).addTo(remap)
+                            }
+
+                            if(["NEAREST_FINGERPRINT"].includes(data.type)) {
+                                L.easyButton(
+                                    '<img src="/img/icons/home-edit.svg" alt="Edit Rooms" />',
+                                    () => {
+                                        editRoomsModal.current.open()
+                                    },
+                                    "edit rooms"
+                                ).addTo(remap)
+
+                                L.easyButton({
+                                    states: [
+                                        {
+                                            stateName: "show",
+                                            icon: '<img src="/img/icons/home-show.svg" alt="Show rooms" />',
+                                            title: "Show rooms",
+                                            onClick: (control) => {
+                                                setShowRooms(true)
+                                                control.state('hide');
+                                            }
+                                        },
+                                        {
+                                            stateName: "hide",
+                                            icon: '<img src="/img/icons/home-hide.svg" alt="Hide rooms" />',
+                                            title: "Hide rooms",
+                                            onClick: (control) => {
+                                                setShowRooms(false)
+                                                control.state('show');
+                                            }
+                                        }
+                                    ]
+                                }).addTo(remap)
+                            }
                         }}
                     >
                         <>
@@ -170,6 +234,17 @@ const LocalizationView = () => {
                                     </div>
                                 </Marker>
                             ))}
+                            {
+                                showRooms && data.rooms.map(room =>
+                                    <Polygon mapRef={map} polygon={room.polygon} f={room.f} color={room.color}><span>{room.name}</span></Polygon>
+                                )
+                            }
+                            {/*<VectorSelect mapRef={map}/>*/}
+                            {/*<Polygon mapRef={map} polygon={[
+                                [0, 0],
+                                [500, 0],
+                                [0, 500]
+                            ]} f={0}><span>abcd</span></Polygon>*/}
                         </>
                     </Map>
 
@@ -209,6 +284,7 @@ const LocalizationView = () => {
                                 <tr>
                                     <th>Název</th>
                                     <th>Poschodí</th>
+                                    <th>Místnost</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -221,6 +297,11 @@ const LocalizationView = () => {
                                             </div>
                                         </td>
                                         <td>{device.f}</td>
+                                        <td>
+                                            {
+                                                device.rooms.map(dr => dr.name).join(", ")
+                                            }
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -248,40 +329,13 @@ const LocalizationView = () => {
                     </Modal>
 
                     <Modal ref={deleteModal}>
-                        <h1>Přejete si smazat tuto lokalizaci?</h1>
-                        <p>Tato akce je nevratná a ztratíte veškeré fingerprinty.</p>
+                        <DeleteModal id={id} close={() => deleteModal.current.close()}/>
+                    </Modal>
 
-                        <br />
-                        <br />
-
-                        <div
-                            className="btn danger"
-                            onClick={() => {
-                                AxiosInstance.delete("/localization/" + id).then(() => {
-                                    deleteModal.current.close()
-                                    history.push("/maps")
-                                })
-                            }}
-                        >
-                            Ano, smazat
-                        </div>
-                        <div className="btn" onClick={() => deleteModal.current.close()}>
-                            Ponechat
-                        </div>
+                    <Modal ref={editRoomsModal}>
+                        <EditRoomModal localizationId={id} update={update} layers={getLayers(data.plan)} rooms={data.rooms} close={() => editRoomsModal.current.close()}/>
                     </Modal>
                 </>
-            )}
-
-            {state === states.ERROR && (
-                <h1>
-                    <T id="error" />
-                </h1>
-            )}
-
-            {state === states.DELETED && (
-                <h1>
-                    <T id="viewBeacon.deleted" />
-                </h1>
             )}
         </div>
     )

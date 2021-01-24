@@ -1,6 +1,7 @@
 import React from "react"
 import L from "leaflet"
 import "overlapping-marker-spiderfier-leaflet/dist/oms"
+
 const OverlappingMarkerSpiderfier = window.OverlappingMarkerSpiderfier
 
 class Map extends React.Component {
@@ -32,17 +33,20 @@ class Map extends React.Component {
         const allControlElements = document.getElementsByClassName("leaflet-control-layers")
 
         const layerControlElement = allControlElements[allControlElements.length - 1]
-        layerControlElement.getElementsByTagName("input")[index].click()
 
-        this.setState({ layerIndex: index })
+        if (layerControlElement.getElementsByTagName("input")[index]) {
+            layerControlElement.getElementsByTagName("input")[index].click()
+        }
+
+        this.setState({layerIndex: index})
     }
 
     componentDidMount() {
         new Promise(async (resolve) => {
             this.map = L.map(this.id, {
                 crs: L.CRS.Simple,
-                minZoom: -5
-                //preferCanvas: true
+                minZoom: -5,
+                preferCanvas: true
             })
 
             this.oms = new OverlappingMarkerSpiderfier(this.map, {
@@ -70,7 +74,7 @@ class Map extends React.Component {
 
             this.map.on("baselayerchange", (change) => {
                 const index = this.props.layers.map((l) => l.name).indexOf(change.name)
-                this.setState({ layerIndex: index })
+                this.setState({layerIndex: index})
             })
 
             global.mapV = this.map
@@ -85,7 +89,7 @@ class Map extends React.Component {
     render() {
         return (
             <>
-                <div className="map" id={this.id} style={{ height: this.props.height || "500px" }}></div>
+                <div className="map" id={this.id} style={{height: this.props.height || "500px"}}></div>
                 {this.props.children}
             </>
         )

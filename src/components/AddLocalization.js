@@ -79,7 +79,7 @@ const AddLocalization = (props) => {
 
                     <label className="form-control">
                         <div className="title">Plán</div>
-                        <select>
+                        <select onChange={(e) => setData({ ...data, planId: e.target.value })}>
                             {plans &&
                                 plans.map((plan) => (
                                     <option value={plan._id} key={plan._id}>

@@ -138,23 +138,14 @@ const CssPlayground = () => {
                     {
                         name: "zahrada",
                         image: "/img/maps/3.png",
-                        markers: []
                     },
                     {
                         name: "přízemí",
                         image: "/img/maps/5.png",
-                        markers: [
-                            { xy: [200, 200], color: "red", id: "m-123456789" },
-                            { xy: [200, 400], color: "red", id: "m-1254444897" }
-                        ]
                     },
                     {
                         name: "první patro",
                         image: "/img/maps/4.png",
-                        markers: [
-                            { xy: [100, 200], color: "blue", id: "m-45618" },
-                            { xy: [100, 400], color: "green", id: "m-654" }
-                        ]
                     }
                 ]}
             />

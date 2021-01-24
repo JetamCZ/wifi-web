@@ -19,6 +19,7 @@ import Organization from "./pages/organization/Organization"
 import CssPlayground from "./pages/css-playground"
 import MapList from "./pages/maps/MapList"
 import LocalizationView from "./pages/maps/LocalizationView"
+import Docs from "./pages/docs";
 
 const App = () => {
     return (
@@ -76,6 +77,10 @@ const App = () => {
                     <AuthLayout>
                         <LoginPage />
                     </AuthLayout>
+                </Route>
+
+                <Route path="/docs">
+                    <Docs/>
                 </Route>
 
                 <Route path="*">

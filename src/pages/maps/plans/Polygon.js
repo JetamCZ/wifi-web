@@ -2,18 +2,17 @@ import React from "react"
 import L from "leaflet"
 import PropTypes from "prop-types"
 import jsxToString from "jsx-to-string"
-import otherIcon from "./icons/otherIcon"
+import VectorMath from "../../../utils/VectorMath";
 
-class Marker extends React.Component {
+class Polygon extends React.Component {
     constructor(props) {
         super(props)
 
         this.initInt = setInterval(this.init.bind(this), 100)
         this.showHideInt = undefined
 
-        this.marker = null
+        this.polygon = null
         this.map = null
-        this.oms = null
 
         this.oldLayer = null
     }
@@ -23,28 +22,20 @@ class Marker extends React.Component {
             clearInterval(this.initInt)
 
             this.map = this.props.mapRef.current.map
-            this.oms = this.props.mapRef.current.oms
 
-            this.marker = L.marker([this.props.pos[1], this.props.pos[0]], {
-                icon: this.props.icon || otherIcon,
-                draggable: this.props.draggable ?? false
+            this.polygon = L.polygon(VectorMath.switchXY(this.props.polygon), {
+                color: this.props.color ?? undefined
             })
 
-            if (this.props.dragend) {
-                this.marker.on("dragend", this.props.dragend)
-            }
-
             if (this.props.onClick) {
-                this.marker.on("click", this.props.onClick)
+                this.polygon.on("click", this.props.onClick)
             }
 
             if (this.props.children) {
                 const popup = jsxToString(this.props.children).replaceAll("className=", "class=")
 
-                this.marker.bindPopup(popup)
+                this.polygon.bindPopup(popup)
             }
-
-            this.oms.addMarker(this.marker)
 
             this.showHideInt = setInterval(this.showHideByLayer.bind(this), 100)
         }
@@ -52,7 +43,7 @@ class Marker extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.marker) {
-            this.marker.setLatLng([this.props.pos[1], this.props.pos[0]])
+            this.polygon.setLatLngs(VectorMath.switchXY(this.props.polygon))
             this.oldLayer = null
         }
     }
@@ -61,10 +52,10 @@ class Marker extends React.Component {
         const layer = this.props.mapRef.current.state.layerIndex
 
         if (layer !== this.oldLayer) {
-            if (this.props.pos[2] === layer) {
-                this.map.addLayer(this.marker)
+            if (this.props.f === layer) {
+                this.polygon.addTo(this.map)
             } else {
-                this.map.removeLayer(this.marker)
+                this.polygon.removeFrom(this.map)
             }
         }
 
@@ -75,7 +66,7 @@ class Marker extends React.Component {
         this.initInt && clearInterval(this.initInt)
         this.showHideInt && clearInterval(this.showHideInt)
 
-        this.map.removeLayer(this.marker)
+        this.polygon.removeFrom(this.map)
     }
 
     render() {
@@ -83,14 +74,13 @@ class Marker extends React.Component {
     }
 }
 
-Marker.propTypes = {
+Polygon.propTypes = {
     mapRef: PropTypes.object.isRequired,
-    pos: PropTypes.array.isRequired.isRequired,
+    polygon: PropTypes.array.isRequired,
+    f: PropTypes.number.isRequired,
     children: PropTypes.element,
-    icon: PropTypes.object,
-    draggable: PropTypes.bool,
-    dragend: PropTypes.func,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    color: PropTypes.string
 }
 
-export default Marker
+export default Polygon
