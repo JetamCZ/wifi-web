@@ -67,10 +67,13 @@ class Translations {
 
             "page.auth.createNewOrg.title": "Vytvoření nové organizace",
             "page.auth.createNewOrg.input.name": "Název organizace",
+            "page.auth.createNewOrg.input.regKey": "Registrační klíč",
             "page.auth.createNewOrg.input.name.placeholder": "Zadejte název organizace",
             "page.auth.createNewOrg.backLogin": "zpět na přihlášení",
             "page.auth.createNewOrg.createNewOrg": "Vytvořit novou organizaci",
             "page.auth.createNewOrg.error.pathNameError": "Název organizace musí mít nejméně 3 znaky",
+            "page.auth.createNewOrg.error.serverError": "Nastala chyba na straně serveru, zkuste to později",
+            "page.auth.createNewOrg.error.code": "Váš registrační klíč je neplatný!",
 
             "page.auth.login.title": "Přihlášení",
             "page.auth.login.input.email": "Email",
