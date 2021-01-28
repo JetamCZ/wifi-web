@@ -1,0 +1,53 @@
+.page-docs {
+    min-height: 100vh;
+    background-color: $main-blue;
+    background-image: url("/img/inspiration-geometry.png");
+    padding: 80px 0;
+
+    .container-white {
+        max-width: 1000px;
+        min-height: 500px;
+        margin: 80px auto;
+        box-sizing: border-box;
+        padding: 80px 50px;
+        background-color: white;
+        box-shadow: 2px 2px 5px 0 #0000001a;
+
+        .logo {
+            font-size: 50px;
+            font-weight: 700;
+            color: #32d893;
+            margin-bottom: 30px;
+        }
+
+        img {
+            max-height: 500px;
+            max-width: 100%;
+            border: 1px solid gray;
+        }
+
+        p {
+            line-height: 1.4em;
+            max-width: 700px;
+        }
+
+        section {
+            margin-bottom: 100px;
+        }
+
+        .cols-2 {
+            display: flex;
+            margin-bottom: 80px;
+
+            .smaller {
+                width: 45%;
+            }
+
+            .bigger {
+                padding: 0 50px;
+                box-sizing: border-box;
+                width: 55%;
+            }
+        }
+    }
+}

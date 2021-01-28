@@ -20,12 +20,16 @@ import CssPlayground from "./pages/css-playground"
 import MapList from "./pages/maps/MapList"
 import LocalizationView from "./pages/maps/LocalizationView"
 import Docs from "./pages/docs";
+import HomePage from "./pages/homepage";
 
 const App = () => {
     return (
         <Router>
             <Switch>
                 <Route path="/" exact>
+                    <HomePage/>
+                </Route>
+                <Route path="/dashboard" exact>
                     <TopLayout>
                         <DashBoard />
                     </TopLayout>

@@ -25,7 +25,7 @@ const TopLayout = (props) => {
         <div className="top-layout">
             <div className="main-nav">
                 <div className="container nav-bar">
-                    <Link to="/">
+                    <Link to="/dashboard">
                         <div className="logo">
                             <div className="locatio">Locate.io</div>
                             <div className="org">{auth && auth.organization.name}</div>
@@ -37,7 +37,7 @@ const TopLayout = (props) => {
                         onClick={() => setMenuOpen(false)}
                     >
                         <div className="item">
-                            <Link to="/">
+                            <Link to="/dashboard">
                                 <T id="component.nav.dashboard" />
                             </Link>
                         </div>

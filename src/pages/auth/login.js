@@ -17,7 +17,7 @@ const LoginPage = () => {
         AxiosInstance.post("/auth/login", { email, password })
             .then((res) => {
                 UserController.login(res.data)
-                history.push("/")
+                history.push("/dashboard")
             })
             .catch((err) => {
                 if (err?.response?.status === 400) {
