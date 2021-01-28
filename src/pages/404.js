@@ -15,7 +15,7 @@ const Error404 = () => {
                         <T id="page.page404.errorDesc" />{" "}
                     </p>
                     <div className="link">
-                        <Link to="/" className="btn btn-light">
+                        <Link to="/dashboard" className="btn btn-light">
                             <T id="page.page404.errorBackBtn" />
                         </Link>
                     </div>

@@ -21,6 +21,7 @@ import MapList from "./pages/maps/MapList"
 import LocalizationView from "./pages/maps/LocalizationView"
 import Docs from "./pages/docs";
 import HomePage from "./pages/homepage";
+import BlueLayout from "./layouts/BlueLayout";
 
 const App = () => {
     return (
@@ -29,40 +30,39 @@ const App = () => {
                 <Route path="/" exact>
                     <HomePage/>
                 </Route>
-                <Route path="/dashboard" exact>
-                    <TopLayout>
-                        <DashBoard />
-                    </TopLayout>
+
+                <Route path="/dashboard">
+                    <BlueLayout title="Dashboard">
+                        <DashBoard/>
+                    </BlueLayout>
                 </Route>
 
                 <Route path="/organization">
-                    <TopLayout>
+                    <BlueLayout title="Organizace">
                         <Organization />
-                    </TopLayout>
+                    </BlueLayout>
                 </Route>
 
                 <Route path="/css">
-                    <TopLayout>
+                    <BlueLayout title="CSS playground">
                         <CssPlayground />
-                    </TopLayout>
+                    </BlueLayout>
                 </Route>
 
                 <Route path="/settings">
-                    <TopLayout>
+                    <BlueLayout title={"Nastavení"}>
                         <Settings />
-                    </TopLayout>
+                    </BlueLayout>
                 </Route>
 
                 <Route path="/maps/:id">
-                    <TopLayout>
-                        <LocalizationView />
-                    </TopLayout>
+                    <LocalizationView />
                 </Route>
 
                 <Route path="/maps">
-                    <TopLayout>
+                    <BlueLayout title="Lokalizace">
                         <MapList />
-                    </TopLayout>
+                    </BlueLayout>
                 </Route>
 
                 <Route path="/auth/create-org">

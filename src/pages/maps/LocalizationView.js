@@ -16,6 +16,7 @@ import VectorSelect from "./plans/VectorSelect";
 import DeleteModal from "./LocalizationView/DeleteModal";
 import Polygon from "./plans/Polygon";
 import EditRoomModal from "./LocalizationView/EditRoomsModal";
+import BlueLayout from "../../layouts/BlueLayout";
 
 const LocalizationView = () => {
     const states = {
@@ -121,223 +122,223 @@ const LocalizationView = () => {
     }
 
     return (
-        <div className="container">
-            {data && state === states.DONE && (
-                <>
-                    <h1 className="name">{data.name}</h1>
-
-                    <div className="summary">
-                        <div className="item">
-                            <div className="title">Typ lokalizace:</div>
-                            <div className="value">{data.type}</div>
+        <BlueLayout title={data && state === states.DONE ? data.name : "Načítání..."}>
+            <div className="container">
+                {data && state === states.DONE && (
+                    <>
+                        <div className="summary">
+                            <div className="item">
+                                <div className="title">Typ lokalizace:</div>
+                                <div className="value">{data.type}</div>
+                            </div>
+                            <div className="item">
+                                <div className="title">Plán:</div>
+                                <div className="value">{data.plan.name}</div>
+                            </div>
+                            <div className="item">
+                                <div className="title">Počet majáků:</div>
+                                <div className="value">{data.beacons.length}</div>
+                            </div>
                         </div>
-                        <div className="item">
-                            <div className="title">Plán:</div>
-                            <div className="value">{data.plan.name}</div>
-                        </div>
-                        <div className="item">
-                            <div className="title">Počet majáků:</div>
-                            <div className="value">{data.beacons.length}</div>
-                        </div>
-                    </div>
 
-                    <Map
-                        layers={getLayers(data.plan)}
-                        ref={map}
-                        afterInit={(remap) => {
-                            if(["NEAREST_FINGERPRINT"].includes(data.type)) {
-                                L.easyButton(
-                                    '<img src="/img/icons/crosshair-add.svg" alt="Make fingerprint" />',
-                                    () => {
-                                        setFingerPrintModal.current.open()
-                                    },
-                                    "Make new fingerprint"
-                                ).addTo(remap)
-                            }
-
-                            if(["NEAREST_FINGERPRINT"].includes(data.type)) {
-                                L.easyButton(
-                                    '<img src="/img/icons/wifi-edit.svg" alt="Edit position of beacons" />',
-                                    () => {
-                                        changeBeaconsPosModal.current.open()
-                                    },
-                                    "Edit beacons positions"
-                                ).addTo(remap)
-                            }
-
-                            if(["NEAREST_FINGERPRINT"].includes(data.type)) {
-                                L.easyButton(
-                                    '<img src="/img/icons/home-edit.svg" alt="Edit Rooms" />',
-                                    () => {
-                                        editRoomsModal.current.open()
-                                    },
-                                    "edit rooms"
-                                ).addTo(remap)
-
-                                L.easyButton({
-                                    states: [
-                                        {
-                                            stateName: "show",
-                                            icon: '<img src="/img/icons/home-show.svg" alt="Show rooms" />',
-                                            title: "Show rooms",
-                                            onClick: (control) => {
-                                                setShowRooms(true)
-                                                control.state('hide');
-                                            }
+                        <Map
+                            layers={getLayers(data.plan)}
+                            ref={map}
+                            afterInit={(remap) => {
+                                if(["NEAREST_FINGERPRINT"].includes(data.type)) {
+                                    L.easyButton(
+                                        '<img src="/img/icons/crosshair-add.svg" alt="Make fingerprint" />',
+                                        () => {
+                                            setFingerPrintModal.current.open()
                                         },
-                                        {
-                                            stateName: "hide",
-                                            icon: '<img src="/img/icons/home-hide.svg" alt="Hide rooms" />',
-                                            title: "Hide rooms",
-                                            onClick: (control) => {
-                                                setShowRooms(false)
-                                                control.state('show');
-                                            }
-                                        }
-                                    ]
-                                }).addTo(remap)
-                            }
-                        }}
-                    >
-                        <>
-                            {data.beacons.map((beacon) => (
-                                <Marker
-                                    key={beacon._id}
-                                    pos={[beacon.x, beacon.y, beacon.f]}
-                                    icon={beaconIcon}
-                                    mapRef={map}
-                                    beacon={beacon}
-                                >
-                                    <div className="mini-beaconView">
-                                        <div className="title">
-                                            <div className="name">{beacon.name}</div>
-                                            <div className="key">{beacon.deviceKey}</div>
-                                            <br />
-                                            <div className="summary-title">Popis umístění:</div>
-                                            <p>{beacon.desc ?? "..."}</p>
-                                        </div>
-                                    </div>
-                                </Marker>
-                            ))}
-                            {data.devices.map((device) => (
-                                <Marker
-                                    key={device.mac}
-                                    pos={[device.x, device.y, device.f]}
-                                    icon={deviceIcon}
-                                    mapRef={map}
-                                >
-                                    <div className="mini-deviceView">
-                                        <div className="title">
-                                            <div className="name">{device.name}</div>
-                                            <div className="key">{device.mac}</div>
-                                        </div>
-                                    </div>
-                                </Marker>
-                            ))}
-                            {
-                                showRooms && data.rooms.map(room =>
-                                    <Polygon mapRef={map} polygon={room.polygon} f={room.f} color={room.color}><span>{room.name}</span></Polygon>
-                                )
-                            }
-                            {/*<VectorSelect mapRef={map}/>*/}
-                            {/*<Polygon mapRef={map} polygon={[
-                                [0, 0],
-                                [500, 0],
-                                [0, 500]
-                            ]} f={0}><span>abcd</span></Polygon>*/}
-                        </>
-                    </Map>
+                                        "Make new fingerprint"
+                                    ).addTo(remap)
+                                }
 
-                    <div className="tools">
-                        <div
-                            className="item"
-                            onClick={() => {
-                                deleteModal.current.open()
+                                if(["NEAREST_FINGERPRINT"].includes(data.type)) {
+                                    L.easyButton(
+                                        '<img src="/img/icons/wifi-edit.svg" alt="Edit position of beacons" />',
+                                        () => {
+                                            changeBeaconsPosModal.current.open()
+                                        },
+                                        "Edit beacons positions"
+                                    ).addTo(remap)
+                                }
+
+                                if(["NEAREST_FINGERPRINT"].includes(data.type)) {
+                                    L.easyButton(
+                                        '<img src="/img/icons/home-edit.svg" alt="Edit Rooms" />',
+                                        () => {
+                                            editRoomsModal.current.open()
+                                        },
+                                        "edit rooms"
+                                    ).addTo(remap)
+
+                                    L.easyButton({
+                                        states: [
+                                            {
+                                                stateName: "show",
+                                                icon: '<img src="/img/icons/home-show.svg" alt="Show rooms" />',
+                                                title: "Show rooms",
+                                                onClick: (control) => {
+                                                    setShowRooms(true)
+                                                    control.state('hide');
+                                                }
+                                            },
+                                            {
+                                                stateName: "hide",
+                                                icon: '<img src="/img/icons/home-hide.svg" alt="Hide rooms" />',
+                                                title: "Hide rooms",
+                                                onClick: (control) => {
+                                                    setShowRooms(false)
+                                                    control.state('show');
+                                                }
+                                            }
+                                        ]
+                                    }).addTo(remap)
+                                }
                             }}
                         >
-                            <img src={"/img/icons/trash.svg"} alt="Trash icon" />
-                            Odebrat lokalizaci
-                        </div>
-                    </div>
+                            <>
+                                {data.beacons.map((beacon) => (
+                                    <Marker
+                                        key={beacon._id}
+                                        pos={[beacon.x, beacon.y, beacon.f]}
+                                        icon={beaconIcon}
+                                        mapRef={map}
+                                        beacon={beacon}
+                                    >
+                                        <div className="mini-beaconView">
+                                            <div className="title">
+                                                <div className="name">{beacon.name}</div>
+                                                <div className="key">{beacon.deviceKey}</div>
+                                                <br />
+                                                <div className="summary-title">Popis umístění:</div>
+                                                <p>{beacon.desc ?? "..."}</p>
+                                            </div>
+                                        </div>
+                                    </Marker>
+                                ))}
+                                {data.devices.map((device) => (
+                                    <Marker
+                                        key={device.mac}
+                                        pos={[device.x, device.y, device.f]}
+                                        icon={deviceIcon}
+                                        mapRef={map}
+                                    >
+                                        <div className="mini-deviceView">
+                                            <div className="title">
+                                                <div className="name">{device.name}</div>
+                                                <div className="key">{device.mac}</div>
+                                            </div>
+                                        </div>
+                                    </Marker>
+                                ))}
+                                {
+                                    showRooms && data.rooms.map(room =>
+                                        <Polygon mapRef={map} polygon={room.polygon} f={room.f} color={room.color}><span>{room.name}</span></Polygon>
+                                    )
+                                }
+                                {/*<VectorSelect mapRef={map}/>*/}
+                                {/*<Polygon mapRef={map} polygon={[
+                                    [0, 0],
+                                    [500, 0],
+                                    [0, 500]
+                                ]} f={0}><span>abcd</span></Polygon>*/}
+                            </>
+                        </Map>
 
-                    {data.type === "NEAREST_FINGERPRINT" &&
-                        data.beacons.filter((b) => b.x === 0 && b.y === 0 && b.f === 0).length ===
-                            data.beacons.length && (
+                        <div className="tools">
+                            <div
+                                className="item"
+                                onClick={() => {
+                                    deleteModal.current.open()
+                                }}
+                            >
+                                <img src={"/img/icons/trash.svg"} alt="Trash icon" />
+                                Odebrat lokalizaci
+                            </div>
+                        </div>
+
+                        {data.type === "NEAREST_FINGERPRINT" &&
+                            data.beacons.filter((b) => b.x === 0 && b.y === 0 && b.f === 0).length ===
+                                data.beacons.length && (
+                                <div className="step-info">
+                                    Zvol nástroj <i>Editovat pozice majáků</i> a rozmisť majáky na mapě!
+                                </div>
+                            )}
+
+                        {data.type === "WALDO" && (
                             <div className="step-info">
-                                Zvol nástroj <i>Editovat pozice majáků</i> a rozmisť majáky na mapě!
+                                <img src="/img/waldo/waldo.jpg" alt="" height={80} style={{ marginRight: "20px" }} />
+                                Where's Wally? / Where is Waldo - je hra, kde je cílem na obrázku Walda najít! Tato
+                                lokalizace byla přidána automaticky po nalezení easter eggu!
                             </div>
                         )}
 
-                    {data.type === "WALDO" && (
-                        <div className="step-info">
-                            <img src="/img/waldo/waldo.jpg" alt="" height={80} style={{ marginRight: "20px" }} />
-                            Where's Wally? / Where is Waldo - je hra, kde je cílem na obrázku Walda najít! Tato
-                            lokalizace byla přidána automaticky po nalezení easter eggu!
-                        </div>
-                    )}
+                        <div className="gap h-2"></div>
 
-                    <div className="gap h-2"></div>
-
-                    <div className="table-wrapper">
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>Název</th>
-                                    <th>Poschodí</th>
-                                    <th>Místnost</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {data.devices.map((device) => (
-                                    <tr key={device.mac}>
-                                        <td>
-                                            <div className="two-line">
-                                                <div className="line">{device.name}</div>
-                                                <div className="line light">{device.mac}</div>
-                                            </div>
-                                        </td>
-                                        <td>{device.f}</td>
-                                        <td>
-                                            {
-                                                device.rooms.map(dr => dr.name).join(", ")
-                                            }
-                                        </td>
+                        <div className="table-wrapper">
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>Název</th>
+                                        <th>Poschodí</th>
+                                        <th>Místnost</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    {data.devices.map((device) => (
+                                        <tr key={device.mac}>
+                                            <td>
+                                                <div className="two-line">
+                                                    <div className="line">{device.name}</div>
+                                                    <div className="line light">{device.mac}</div>
+                                                </div>
+                                            </td>
+                                            <td>{device.f}</td>
+                                            <td>
+                                                {
+                                                    device.rooms.map(dr => dr.name).join(", ")
+                                                }
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
 
-                    <Modal ref={changeBeaconsPosModal}>
-                        <ChangeBeaconsPos
-                            id={id}
-                            afterSave={() => {
-                                changeBeaconsPosModal.current.close()
-                                update()
-                            }}
-                        />
-                    </Modal>
+                        <Modal ref={changeBeaconsPosModal}>
+                            <ChangeBeaconsPos
+                                id={id}
+                                afterSave={() => {
+                                    changeBeaconsPosModal.current.close()
+                                    update()
+                                }}
+                            />
+                        </Modal>
 
-                    <Modal ref={setFingerPrintModal}>
-                        <MakeFingerPrint
-                            id={id}
-                            afterSave={() => {
-                                setFingerPrintModal.current.close()
-                                update()
-                            }}
-                        />
-                    </Modal>
+                        <Modal ref={setFingerPrintModal}>
+                            <MakeFingerPrint
+                                id={id}
+                                afterSave={() => {
+                                    setFingerPrintModal.current.close()
+                                    update()
+                                }}
+                            />
+                        </Modal>
 
-                    <Modal ref={deleteModal}>
-                        <DeleteModal id={id} close={() => deleteModal.current.close()}/>
-                    </Modal>
+                        <Modal ref={deleteModal}>
+                            <DeleteModal id={id} close={() => deleteModal.current.close()}/>
+                        </Modal>
 
-                    <Modal ref={editRoomsModal}>
-                        <EditRoomModal localizationId={id} update={update} layers={getLayers(data.plan)} rooms={data.rooms} close={() => editRoomsModal.current.close()}/>
-                    </Modal>
-                </>
-            )}
-        </div>
+                        <Modal ref={editRoomsModal}>
+                            <EditRoomModal localizationId={id} update={update} layers={getLayers(data.plan)} rooms={data.rooms} close={() => editRoomsModal.current.close()}/>
+                        </Modal>
+                    </>
+                )}
+            </div>
+        </BlueLayout>
     )
 }
 

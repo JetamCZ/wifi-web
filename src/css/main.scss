@@ -4,7 +4,6 @@ $shadow: 0 0 5px #dad6d6;
 $text: #333333;
 
 body {
-    background-image: url("/img/inspiration-geometry.png");
     box-sizing: border-box;
     width: 100%;
     min-height: 100vh;
@@ -12,6 +11,10 @@ body {
 
     font-family: "Source Sans Pro", sans-serif;
     color: $text;
+}
+
+.top-layout {
+    background-image: url("/img/inspiration-geometry.png");
 }
 
 a {
@@ -397,6 +400,7 @@ label.form-control {
 @import "layout/nav";
 @import "layout/page404";
 @import "layout/auth";
+@import "layout/blue";
 
 @import "pages/index";
 @import "pages/createOrg";

@@ -1,7 +1,4 @@
 .page-homepage {
-    background-color: #f5f6f9;
-    min-height: 100vh;
-
     .btn.success {
         background-color: #00a560 !important;
     }
@@ -39,7 +36,7 @@
         width: 100%;
         overflow: hidden;
         /*background-color: $main-color;*/
-        background-color: #0b2e9a;
+        background-color: $main-blue;
         background-image: url("/img/inspiration-geometry.png");
 
         .container {
@@ -283,11 +280,11 @@
 
     .footer .container {
         text-align: right;
-        padding: 150px 0 50px 0;
+        padding: 150px 15px 50px 15px;
         color: #9c9c9c;
 
         a {
-            font-weight: 700;
+            font-weight: 600;
         }
     }
 }
