@@ -96,7 +96,8 @@ const HomePage = () => {
             <div className="footer">
                 <div className="container">
                     Locate.io | 2020 - {new Date().getFullYear()} | Maturitní projekt {" "}
-                    <a href="https://puhony.eu/" target="_blank" rel="noopener noreferrer nofollow">Matěj Půhoný</a>
+                    <a href="https://puhony.eu/" target="_blank" rel="noopener noreferrer nofollow">Matěj Půhoný</a> {" "}
+                    | {process.env.VERCEL_GIT_COMMIT_SHA ? process.env.VERCEL_GIT_COMMIT_SHA : "development"}
                 </div>
             </div>
         </div>
