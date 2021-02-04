@@ -8,10 +8,14 @@ import { get } from "leaflet/src/dom/DomUtil"
 import formats from "../../utils/formats"
 import UserController from "../../controllers/UserController";
 import AddDeviceModal from "./AddDeviceModal";
+import ViewDeviceModal from "./ViewDeviceModal";
 
 const DeviceList = () => {
     const addModal = createRef()
+    const detailModalRef = createRef()
     const [devices, setDevices] = useState()
+
+    const [deviceDetail, setDeviceDetail] = useState(null)
 
     const getDevices = () => {
         AxiosInstance.get("/devices").then((res) => {
@@ -21,12 +25,17 @@ const DeviceList = () => {
 
     useEffect(() => {
         getDevices()
-        const int = setInterval(getDevices, 5000)
+        const int = setInterval(getDevices, 3000)
 
         return function cleanup() {
             clearInterval(int)
         }
     }, [])
+
+    const openDetail = (id) => {
+        setDeviceDetail(id)
+        detailModalRef.current.open()
+    }
 
     return (
         <>
@@ -73,7 +82,9 @@ const DeviceList = () => {
                                     <td>
                                         {device.lastSeenDate ? formats.toHMSWords(new Date(device.lastSeenDate)) : "?"}
                                     </td>
-                                    <td></td>
+                                    <td className="text-right">
+                                        <div className="btn info sm" onClick={() => openDetail(device._id)}>Detail</div>
+                                    </td>
                                 </tr>
                             ))}
                     </tbody>
@@ -85,6 +96,10 @@ const DeviceList = () => {
                     addModal.current.close()
                     getDevices()
                 }}/>
+            </Modal>
+
+            <Modal ref={detailModalRef}>
+                <ViewDeviceModal id={deviceDetail}/>
             </Modal>
         </>
     )

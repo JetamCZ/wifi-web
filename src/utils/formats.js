@@ -49,12 +49,20 @@ class Format {
             ". " +
             date.getFullYear() +
             " " +
-            date.getHours() +
+            this._num2(date.getHours()) +
             ":" +
-            date.getMinutes() +
+            this._num2(date.getMinutes()) +
             ":" +
-            date.getSeconds()
+            this._num2(date.getSeconds())
         )
+    }
+
+    _num2(num) {
+        if(num.toString().length < 2) {
+            return "0"+num
+        }
+
+        return num
     }
 }
 

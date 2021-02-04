@@ -22,6 +22,7 @@ import LocalizationView from "./pages/maps/LocalizationView"
 import Docs from "./pages/docs";
 import HomePage from "./pages/homepage";
 import BlueLayout from "./layouts/BlueLayout";
+import MapPlayground from "./pages/MapPlayground";
 
 const App = () => {
     return (
@@ -46,6 +47,12 @@ const App = () => {
                 <Route path="/css">
                     <BlueLayout title="CSS playground">
                         <CssPlayground />
+                    </BlueLayout>
+                </Route>
+
+                <Route path="/map-playground">
+                    <BlueLayout title="MAP playground">
+                        <MapPlayground/>
                     </BlueLayout>
                 </Route>
 

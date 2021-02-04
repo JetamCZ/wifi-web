@@ -1,13 +1,9 @@
 import React, { createRef, useEffect, useRef, useState } from "react"
 import Map from "./plans/Map"
-import { useParams } from "react-router-dom"
 import AxiosInstance from "../../utils/AxiosInstance"
 import T from "../../components/T"
-import Modal from "../../components/Modal"
-import faker from "faker/locale/cz"
 import formats from "../../utils/formats"
-import Marker from "./plans/Marker"
-import moveIcon from "./plans/icons/moveIcon"
+import PosSelect from "./plans/PosSelect";
 
 let interval = null
 
@@ -164,30 +160,19 @@ const MakeFingerPrint = (props) => {
                             <div className="gap h-2"></div>
 
                             <Map layers={getMapData(data.plan)} ref={map}>
-                                <Marker
+                                <PosSelect
                                     mapRef={map}
-                                    pos={[point.x, point.y, point.f]}
-                                    icon={moveIcon}
-                                    draggable={true}
-                                    dragend={(value) => {
+                                    pos={[200, 1000]}
+                                    onChange={(pos) => {
                                         setPoint({
                                             ...point,
-                                            x: value.target._latlng.lng,
-                                            y: value.target._latlng.lat
+                                            x: pos[0],
+                                            y: pos[1],
+                                            f: pos[2]
                                         })
                                     }}
                                 />
                             </Map>
-
-                            <div className="act-beacon">
-                                <h3>Nový fingerprint ({point.mac})</h3>
-                                <p></p>
-                                {data.plan.floors.map((lay) => (
-                                    <div className="btn sm warning" onClick={() => changeFloor(lay.floor)}>
-                                        Přesunout do: {lay.name}
-                                    </div>
-                                ))}
-                            </div>
 
                             <br />
 

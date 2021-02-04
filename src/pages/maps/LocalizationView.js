@@ -17,6 +17,8 @@ import DeleteModal from "./LocalizationView/DeleteModal";
 import Polygon from "./plans/Polygon";
 import EditRoomModal from "./LocalizationView/EditRoomsModal";
 import BlueLayout from "../../layouts/BlueLayout";
+import formats from "../../utils/formats";
+import Circle from "./plans/Circle";
 
 const LocalizationView = () => {
     const states = {
@@ -30,6 +32,8 @@ const LocalizationView = () => {
     const [data, setData] = useState(null)
     const [showRooms, setShowRooms] = useState(false)
 
+    const [atr, setAtr] = useState(null)
+
     const { id } = useParams()
 
     const changeBeaconsPosModal = useRef()
@@ -38,6 +42,15 @@ const LocalizationView = () => {
     const editRoomsModal = useRef()
 
     const map = useRef()
+
+    const getRandomColor = () => {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
 
     useEffect(() => {
         update()
@@ -121,6 +134,23 @@ const LocalizationView = () => {
         )
     }
 
+    const calc2 = (circle1, circle2) => {
+        const c = Math.sqrt(Math.pow((circle1[0]-circle2[0]), 2) + Math.pow((circle1[1]-circle2[1]), 2))
+        const d = (Math.pow(circle1[2], 2) + Math.pow(c, 2) - Math.pow(circle2[2], 2))/(2*c)
+        const h = Math.sqrt(Math.pow(circle1[2], 2) - Math.pow(d, 2))
+
+        return [
+            [
+                (circle2[0]-circle1[0])*d/c + (circle2[1]-circle1[1])*h/c + circle1[0],
+                (circle2[1]-circle1[1])*d/c - (circle2[0]-circle1[0])*h/c + circle1[1]
+            ],
+            [
+                (circle2[0]-circle1[0])*d/c - (circle2[1]-circle1[1])*h/c + circle1[0],
+                (circle2[1]-circle1[1])*d/c + (circle2[0]-circle1[0])*h/c + circle1[1]
+            ]
+        ]
+    }
+
     return (
         <BlueLayout title={data && state === states.DONE ? data.name : "Načítání..."}>
             <div className="container">
@@ -155,7 +185,7 @@ const LocalizationView = () => {
                                     ).addTo(remap)
                                 }
 
-                                if(["NEAREST_FINGERPRINT"].includes(data.type)) {
+                                if(["NEAREST_FINGERPRINT", "TRILATERATION"].includes(data.type)) {
                                     L.easyButton(
                                         '<img src="/img/icons/wifi-edit.svg" alt="Edit position of beacons" />',
                                         () => {
@@ -165,7 +195,7 @@ const LocalizationView = () => {
                                     ).addTo(remap)
                                 }
 
-                                if(["NEAREST_FINGERPRINT"].includes(data.type)) {
+                                if(["NEAREST_FINGERPRINT", "TRILATERATION"].includes(data.type)) {
                                     L.easyButton(
                                         '<img src="/img/icons/home-edit.svg" alt="Edit Rooms" />',
                                         () => {
@@ -199,7 +229,7 @@ const LocalizationView = () => {
                                 }
                             }}
                         >
-                            <>
+                            { map.current && <>
                                 {data.beacons.map((beacon) => (
                                     <Marker
                                         key={beacon._id}
@@ -245,8 +275,18 @@ const LocalizationView = () => {
                                     [500, 0],
                                     [0, 500]
                                 ]} f={0}><span>abcd</span></Polygon>*/}
-                            </>
+
+                                {/*
+                                    data.devices.find(d => d.mac === "e0:d0:83:d6:2a:57")?.custom?.deviceCalcData.map(d =>
+                                        <Circle mapRef={map} radius={d.distance*(global.d ?? 1)} pos={[d.x, d.y]}/>
+                                    )
+                                */}
+                            </>}
                         </Map>
+
+                        {
+                            JSON.stringify(data?.devices[0]?.custom?.deviceCalcData)
+                        }
 
                         <div className="tools">
                             <div
@@ -260,7 +300,7 @@ const LocalizationView = () => {
                             </div>
                         </div>
 
-                        {data.type === "NEAREST_FINGERPRINT" &&
+                        {["NEAREST_FINGERPRINT", "TRILATERATION"].includes(data.type) &&
                             data.beacons.filter((b) => b.x === 0 && b.y === 0 && b.f === 0).length ===
                                 data.beacons.length && (
                                 <div className="step-info">
@@ -277,6 +317,8 @@ const LocalizationView = () => {
                         )}
 
                         <div className="gap h-2"></div>
+
+                        poslední výpočet: {formats.toDMYHMS(new Date(data.customLocalizationData.caclulatingTimes.date))}
 
                         <div className="table-wrapper">
                             <table className="table">

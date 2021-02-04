@@ -72,8 +72,9 @@ const AddLocalization = (props) => {
 
                     <label className="form-control">
                         <div className="title">Typ lokalizace</div>
-                        <select onChange={(e) => setData({ ...data, name: e.target.value })}>
+                        <select onChange={(e) => setData({ ...data, type: e.target.value })}>
                             <option value="NEAREST_FINGERPRINT">Nejbližší finger print</option>
+                            <option value="TRILATERATION">Trilaterace</option>
                         </select>
                     </label>
 
