@@ -56,8 +56,13 @@ const BlueLayout = (props) => {
                             </Link>
                         </div>
                         <div className="item">
-                            <Link to="/maps">
+                            <Link to="/localizations">
                                 <T id="component.nav.maps" />
+                            </Link>
+                        </div>
+                        <div className="item">
+                            <Link to="/history">
+                                Záznamy
                             </Link>
                         </div>
                         {auth && (

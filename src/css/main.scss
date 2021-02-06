@@ -208,9 +208,11 @@ label.form-control {
 .text-center {
     text-align: center !important;
 }
+
 .text-right {
     text-align: right !important;
 }
+
 .text-left {
     text-align: left !important;
 }
@@ -389,6 +391,153 @@ label.form-control {
     img {
         width: 18px;
         margin: 5px 0;
+    }
+}
+
+.timeline-wrapper {
+    box-shadow: 0 0 5px #dad6d6;
+    background-color: white;
+    padding: 20px 40px 20px 40px;
+    margin: 20px 0;
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .sub-h1 {
+            margin-left: 20px;
+            display: inline-block;
+            color: gray;
+        }
+
+        .select {
+            display: inline-grid;
+            grid-template-columns: auto auto auto;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+            overflow: hidden;
+
+            .sel {
+                select {
+                    border: 0 transparent;
+                    background-color: transparent;
+                    padding: 0;
+                    outline: transparent;
+                    cursor: pointer;
+                }
+
+                border-left: 1px solid lightgray;
+                border-right: 1px solid lightgray;
+
+                &:hover {
+                    background-color: rgba(lightgray, 0.5);
+                }
+            }
+
+            * {
+                padding: 5px 10px;
+            }
+
+            .prev, .next {
+                cursor: pointer;
+                font-weight: 700;
+
+                &:hover {
+                    background-color: rgba(lightgray, 0.5);
+                }
+            }
+
+            .prev {
+                font-size: 1.3em;
+            }
+        }
+    }
+
+    .timeline {
+        display: grid;
+        grid-template-columns: 250px auto;
+        margin-top: 20px;
+
+        .time {
+            height: 20px;
+            border-bottom: 1px solid lightgray;
+        }
+
+        .left {
+            .item {
+                padding: 10px;
+                height: 65px;
+                box-sizing: border-box;
+                border-bottom: 1px solid transparent;
+
+                .name {
+                    font-size: 20px;
+                    font-weight: 700;
+                }
+
+                .sub {
+                    opacity: 0.5;
+                }
+            }
+
+            .time {
+                border-bottom: 1px solid transparent;
+            }
+        }
+
+        .right {
+            overflow-x: auto;
+            background-color: #f7f7f7;
+            padding-left: 25px;
+
+            .time {
+                display: flex;
+                width: max-content;
+
+                .item {
+                    width: 50px;
+                    border-left: 1px solid lightgray;
+                    text-indent: 0px;
+                    color: lightgray;
+                    box-sizing: border-box;
+                    text-indent: -50px;
+                    text-align: center;
+                    color: inherit;
+                }
+            }
+
+            .activity {
+                position: relative;
+                height: 65px;
+                box-sizing: border-box;
+
+                .boxes {
+                    display: flex;
+                    width: max-content;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    box-sizing: border-box;
+
+                    .box {
+                        height: 65px;
+                        box-sizing: border-box;
+                        width: 50px;
+                        border-left: 1px solid lightgray;
+                        border-bottom: 1px solid lightgray;
+                    }
+                }
+
+                .timeStamp {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    background-color: $main-color;
+                }
+            }
+        }
     }
 }
 

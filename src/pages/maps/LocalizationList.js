@@ -57,7 +57,7 @@ const LocalizationList = () => {
                                     <td>{loc.name}</td>
                                     <td>{loc.type}</td>
                                     <td className="text-right">
-                                        <Link to={"/maps/" + loc._id}>
+                                        <Link to={"/localizations/" + loc._id}>
                                             <div className="btn sm">Zobrazit</div>
                                         </Link>
                                     </td>

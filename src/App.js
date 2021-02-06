@@ -6,8 +6,6 @@ import "./css/main.scss"
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
-import TopLayout from "./layouts/TopLayout"
-
 import Error404 from "./pages/404"
 import Settings from "./pages/settings"
 import DashBoard from "./pages/dashboard"
@@ -23,6 +21,7 @@ import Docs from "./pages/docs"
 import HomePage from "./pages/homepage"
 import BlueLayout from "./layouts/BlueLayout"
 import MapPlayground from "./pages/MapPlayground"
+import History from "./pages/history/history";
 
 const App = () => {
     return (
@@ -62,15 +61,22 @@ const App = () => {
                     </BlueLayout>
                 </Route>
 
-                <Route path="/maps/:id">
+                <Route path="/localizations/:id">
                     <LocalizationView />
                 </Route>
 
-                <Route path="/maps">
+                <Route path="/localizations">
                     <BlueLayout title="Lokalizace">
                         <MapList />
                     </BlueLayout>
                 </Route>
+
+                <Route path="/history">
+                    <BlueLayout title="Záznamy">
+                        <History/>
+                    </BlueLayout>
+                </Route>
+
 
                 <Route path="/auth/create-org">
                     <AuthLayout>

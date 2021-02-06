@@ -25,6 +25,11 @@ class Format {
         return this.toHHMMSS(seconds)
     }
 
+    getHM(date) {
+        return this._num2(date.getHours())+
+            ":"+this._num2(date.getMinutes())
+    }
+
     toHMSWords(date) {
         const seconds = this.diffInSeconds(date)
 
