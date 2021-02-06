@@ -26,13 +26,12 @@ class Circle extends React.Component {
                 color: this.props.color ?? "#32d893"
             })
 
-
             this.map.addLayer(this.marker)
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.marker) {
+        if (this.marker) {
             this.marker.setLatLng([this.props.pos[1], this.props.pos[0]])
             this.marker.setRadius(this.props.radius)
         }

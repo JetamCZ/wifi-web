@@ -22,7 +22,7 @@ class PosSelect extends React.Component {
 
             this.marker = L.marker([this.props.pos[1], this.props.pos[0]], {
                 icon: moveIcon,
-                draggable: true,
+                draggable: true
             })
 
             this.marker.on("dragend", this.onChange.bind(this))

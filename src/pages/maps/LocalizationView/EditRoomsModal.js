@@ -1,7 +1,7 @@
-import React, {createRef, useState} from "react";
-import Map from "../plans/Map";
-import VectorSelect from "../plans/VectorSelect";
-import AxiosInstance from "../../../utils/AxiosInstance";
+import React, { createRef, useState } from "react"
+import Map from "../plans/Map"
+import VectorSelect from "../plans/VectorSelect"
+import AxiosInstance from "../../../utils/AxiosInstance"
 
 const EditRoomModal = (props) => {
     const map = createRef()
@@ -26,11 +26,11 @@ const EditRoomModal = (props) => {
     })
 
     const handleSelect = () => {
-        if(selectRef.current.value === "new") {
+        if (selectRef.current.value === "new") {
             setState(states.NEW_NAME)
         } else {
             const id = selectRef.current.value
-            const room = props.rooms.find(r => r._id === id)
+            const room = props.rooms.find((r) => r._id === id)
 
             setRoom({
                 id: selectRef.current.value,
@@ -42,26 +42,24 @@ const EditRoomModal = (props) => {
         }
     }
 
-    if(state === states.SELECT) {
+    if (state === states.SELECT) {
         return (
             <>
                 <h1>Upravení místností</h1>
-                <br/>
+                <br />
                 <label className="form-control">
                     <div className="title">Vyber místnost</div>
                     <select ref={selectRef}>
                         {props.rooms.map((room) => (
-                            <option value={room._id}>
-                                {room.name}
-                            </option>
+                            <option value={room._id}>{room.name}</option>
                         ))}
-                        <option value={"new"}>
-                            + Přidat novou místnost
-                        </option>
+                        <option value={"new"}>+ Přidat novou místnost</option>
                     </select>
                 </label>
                 <div className="text-right">
-                    <div className="btn success" onClick={handleSelect}>Upravit</div>
+                    <div className="btn success" onClick={handleSelect}>
+                        Upravit
+                    </div>
                 </div>
             </>
         )
@@ -71,54 +69,67 @@ const EditRoomModal = (props) => {
         setState(states.CHANGE)
     }
 
-    if(state === states.NEW_NAME) {
+    if (state === states.NEW_NAME) {
         return (
             <>
                 <h1>Upravení místností</h1>
-                <br/>
+                <br />
                 <label className="form-control">
                     <div className="title">Název místnosti</div>
-                    <input type="text" placeholder="Zadej název místnosti" onChange={(e) => setRoom({...room, name: e.target.value})}/>
+                    <input
+                        type="text"
+                        placeholder="Zadej název místnosti"
+                        onChange={(e) => setRoom({ ...room, name: e.target.value })}
+                    />
                 </label>
                 <div className="text-right">
-                    <div className="btn success" onClick={handleSetName}>Nastavit</div>
+                    <div className="btn success" onClick={handleSetName}>
+                        Nastavit
+                    </div>
                 </div>
             </>
         )
     }
 
     const handleSave = () => {
-        if(!room.id) {
-           AxiosInstance.post('/localization/'+props.localizationId+'/room', room)
-                .then(() => {
-                    props.close()
-                })
+        if (!room.id) {
+            AxiosInstance.post("/localization/" + props.localizationId + "/room", room).then(() => {
+                props.close()
+            })
         } else {
-            AxiosInstance.put('/room/'+room.id, room)
-                .then(() => {
-                    props.close()
-                })
+            AxiosInstance.put("/room/" + room.id, room).then(() => {
+                props.close()
+            })
         }
     }
 
     const handleDelete = () => {
-        AxiosInstance.delete('/room/'+room.id)
-            .then(() => {
-                props.close()
-            })
+        AxiosInstance.delete("/room/" + room.id).then(() => {
+            props.close()
+        })
     }
 
     return (
         <>
             <h1>Upravení místností - {room.name}</h1>
-            <br/>
+            <br />
             <Map ref={map} layers={props.layers} afterInit={() => {}}>
-                <VectorSelect mapRef={map} polygon={room.polygon} onChange={(e) => setRoom({...room, f: e.f, polygon: e.polygon})}/>
+                <VectorSelect
+                    mapRef={map}
+                    polygon={room.polygon}
+                    onChange={(e) => setRoom({ ...room, f: e.f, polygon: e.polygon })}
+                />
             </Map>
-            <br/>
+            <br />
             <div className="text-right">
-                <div className="btn success" onClick={handleSave}>Uložit</div>
-                {room.id && <div className="btn empty" onClick={handleDelete}>Odebrat</div>}
+                <div className="btn success" onClick={handleSave}>
+                    Uložit
+                </div>
+                {room.id && (
+                    <div className="btn empty" onClick={handleDelete}>
+                        Odebrat
+                    </div>
+                )}
             </div>
         </>
     )

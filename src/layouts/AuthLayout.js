@@ -10,7 +10,8 @@ const AuthLayout = (props) => {
                 <div className="sign">
                     <T id="components.authFooter.firstLine" />
                     <br />
-                    <T id="components.authFooter.secondLine" /> - <span className="name">Matěj Půhoný</span> 2020 - {new Date().getFullYear()}
+                    <T id="components.authFooter.secondLine" /> - <span className="name">Matěj Půhoný</span> 2020 -{" "}
+                    {new Date().getFullYear()}
                 </div>
             </div>
         </div>

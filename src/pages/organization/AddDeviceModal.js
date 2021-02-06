@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
-import AxiosInstance from "../../utils/AxiosInstance";
-import UserController from "../../controllers/UserController";
+import React, { useEffect, useState } from "react"
+import AxiosInstance from "../../utils/AxiosInstance"
+import UserController from "../../controllers/UserController"
 
 const AddDeviceModal = (props) => {
     const [newDevice, setNewDevice] = useState({
@@ -12,7 +12,7 @@ const AddDeviceModal = (props) => {
     const [people, setPeople] = useState([])
 
     useEffect(() => {
-        AxiosInstance.get('/organization/people')
+        AxiosInstance.get("/organization/people")
             .then((res) => {
                 setPeople(res.data)
             })
@@ -44,25 +44,20 @@ const AddDeviceModal = (props) => {
 
             <label className="form-control">
                 <div className="title">Název (jakékoli pojmenování)</div>
-                <input
-                    type="text"
-                    placeholder="Zadej název"
-                    onChange={(e) => setFormValue("name", e.target.value)}
-                />
+                <input type="text" placeholder="Zadej název" onChange={(e) => setFormValue("name", e.target.value)} />
             </label>
 
             <label className="form-control">
                 <div className="title">Majitel</div>
-                <select defaultValue={UserController.getUser()?._id} onChange={(e) => setFormValue("userId", e.target.value)}>
-                    {
-                        people.length === 0 ? (
-                            <option value={UserController.getUser()?._id}>{UserController.getUser()?.name}</option>
-                        ) : (
-                            people.map(person =>
-                                <option value={person._id}>{person.name}</option>
-                            )
-                        )
-                    }
+                <select
+                    defaultValue={UserController.getUser()?._id}
+                    onChange={(e) => setFormValue("userId", e.target.value)}
+                >
+                    {people.length === 0 ? (
+                        <option value={UserController.getUser()?._id}>{UserController.getUser()?.name}</option>
+                    ) : (
+                        people.map((person) => <option value={person._id}>{person.name}</option>)
+                    )}
                 </select>
             </label>
 

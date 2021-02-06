@@ -6,9 +6,9 @@ import Modal from "../../components/Modal"
 import AxiosInstance from "../../utils/AxiosInstance"
 import { get } from "leaflet/src/dom/DomUtil"
 import formats from "../../utils/formats"
-import UserController from "../../controllers/UserController";
-import AddDeviceModal from "./AddDeviceModal";
-import ViewDeviceModal from "./ViewDeviceModal";
+import UserController from "../../controllers/UserController"
+import AddDeviceModal from "./AddDeviceModal"
+import ViewDeviceModal from "./ViewDeviceModal"
 
 const DeviceList = () => {
     const addModal = createRef()
@@ -83,7 +83,9 @@ const DeviceList = () => {
                                         {device.lastSeenDate ? formats.toHMSWords(new Date(device.lastSeenDate)) : "?"}
                                     </td>
                                     <td className="text-right">
-                                        <div className="btn info sm" onClick={() => openDetail(device._id)}>Detail</div>
+                                        <div className="btn info sm" onClick={() => openDetail(device._id)}>
+                                            Detail
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
@@ -92,14 +94,16 @@ const DeviceList = () => {
             </div>
 
             <Modal ref={addModal}>
-                <AddDeviceModal afterSave={() => {
-                    addModal.current.close()
-                    getDevices()
-                }}/>
+                <AddDeviceModal
+                    afterSave={() => {
+                        addModal.current.close()
+                        getDevices()
+                    }}
+                />
             </Modal>
 
             <Modal ref={detailModalRef}>
-                <ViewDeviceModal id={deviceDetail}/>
+                <ViewDeviceModal id={deviceDetail} />
             </Modal>
         </>
     )

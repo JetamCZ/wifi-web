@@ -3,7 +3,7 @@ import Map from "./plans/Map"
 import AxiosInstance from "../../utils/AxiosInstance"
 import T from "../../components/T"
 import formats from "../../utils/formats"
-import PosSelect from "./plans/PosSelect";
+import PosSelect from "./plans/PosSelect"
 
 let interval = null
 

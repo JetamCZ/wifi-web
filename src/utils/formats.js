@@ -58,8 +58,8 @@ class Format {
     }
 
     _num2(num) {
-        if(num.toString().length < 2) {
-            return "0"+num
+        if (num.toString().length < 2) {
+            return "0" + num
         }
 
         return num

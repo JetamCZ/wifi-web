@@ -1,4 +1,4 @@
-import React  from "react"
+import React from "react"
 import Beacons from "./index/beacons"
 import ActivePeople from "./index/ActivePeople"
 

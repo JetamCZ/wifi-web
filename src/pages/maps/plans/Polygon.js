@@ -2,7 +2,7 @@ import React from "react"
 import L from "leaflet"
 import PropTypes from "prop-types"
 import jsxToString from "jsx-to-string"
-import VectorMath from "../../../utils/VectorMath";
+import VectorMath from "../../../utils/VectorMath"
 
 class Polygon extends React.Component {
     constructor(props) {

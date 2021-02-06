@@ -137,15 +137,15 @@ const CssPlayground = () => {
                 layers={[
                     {
                         name: "zahrada",
-                        image: "/img/maps/3.png",
+                        image: "/img/maps/3.png"
                     },
                     {
                         name: "přízemí",
-                        image: "/img/maps/5.png",
+                        image: "/img/maps/5.png"
                     },
                     {
                         name: "první patro",
-                        image: "/img/maps/4.png",
+                        image: "/img/maps/4.png"
                     }
                 ]}
             />

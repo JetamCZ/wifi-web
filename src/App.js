@@ -19,22 +19,22 @@ import Organization from "./pages/organization/Organization"
 import CssPlayground from "./pages/css-playground"
 import MapList from "./pages/maps/MapList"
 import LocalizationView from "./pages/maps/LocalizationView"
-import Docs from "./pages/docs";
-import HomePage from "./pages/homepage";
-import BlueLayout from "./layouts/BlueLayout";
-import MapPlayground from "./pages/MapPlayground";
+import Docs from "./pages/docs"
+import HomePage from "./pages/homepage"
+import BlueLayout from "./layouts/BlueLayout"
+import MapPlayground from "./pages/MapPlayground"
 
 const App = () => {
     return (
         <Router>
             <Switch>
                 <Route path="/" exact>
-                    <HomePage/>
+                    <HomePage />
                 </Route>
 
                 <Route path="/dashboard">
                     <BlueLayout title="Dashboard">
-                        <DashBoard/>
+                        <DashBoard />
                     </BlueLayout>
                 </Route>
 
@@ -52,7 +52,7 @@ const App = () => {
 
                 <Route path="/map-playground">
                     <BlueLayout title="MAP playground">
-                        <MapPlayground/>
+                        <MapPlayground />
                     </BlueLayout>
                 </Route>
 
@@ -91,7 +91,7 @@ const App = () => {
                 </Route>
 
                 <Route path="/docs">
-                    <Docs/>
+                    <Docs />
                 </Route>
 
                 <Route path="*">

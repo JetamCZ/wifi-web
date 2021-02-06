@@ -13,7 +13,8 @@
 
     .topline {
         position: absolute;
-        top: 10px; left: 0;
+        top: 10px;
+        left: 0;
         z-index: 200;
         width: 100%;
 
@@ -44,7 +45,8 @@
             height: 500px;
 
             .box {
-                position: absolute; top: 180px;
+                position: absolute;
+                top: 180px;
                 max-width: 600px;
 
                 p {
@@ -85,29 +87,72 @@
 
                     img {
                         position: absolute;
-                        top: 107px; left: 320px;
+                        top: 107px;
+                        left: 320px;
                         animation: walk 180s infinite linear;
 
                         @keyframes walk {
-                            0% { top: 40px; left: 370px;}
-                            10% { top: 107px; left: 350px;}
-                            13% { top: 107px; left: 320px;}
-                            20% { top: 201px; left: 330px;}
-                            27% { top: 107px; left: 320px;}
-                            35% { top: 107px; left: 205px;}
-                            47% { top: 150px; left: 205px;}
-                            58% { top: 150px; left: 145px;}
-                            60% { top: 40px; left: 145px;}
-                            65% { top: 150px; left: 145px;}
-                            70% { top: 150px; left: 205px;}
-                            75% { top: 107px; left: 205px;}
-                            85% { top: 107px; left: 330px;}
-                            100% { top: 40px; left: 370px;}
+                            0% {
+                                top: 40px;
+                                left: 370px;
+                            }
+                            10% {
+                                top: 107px;
+                                left: 350px;
+                            }
+                            13% {
+                                top: 107px;
+                                left: 320px;
+                            }
+                            20% {
+                                top: 201px;
+                                left: 330px;
+                            }
+                            27% {
+                                top: 107px;
+                                left: 320px;
+                            }
+                            35% {
+                                top: 107px;
+                                left: 205px;
+                            }
+                            47% {
+                                top: 150px;
+                                left: 205px;
+                            }
+                            58% {
+                                top: 150px;
+                                left: 145px;
+                            }
+                            60% {
+                                top: 40px;
+                                left: 145px;
+                            }
+                            65% {
+                                top: 150px;
+                                left: 145px;
+                            }
+                            70% {
+                                top: 150px;
+                                left: 205px;
+                            }
+                            75% {
+                                top: 107px;
+                                left: 205px;
+                            }
+                            85% {
+                                top: 107px;
+                                left: 330px;
+                            }
+                            100% {
+                                top: 40px;
+                                left: 370px;
+                            }
                         }
                     }
                 }
 
-                @media screen and (max-width: 950px){
+                @media screen and (max-width: 950px) {
                     opacity: 0.3;
                 }
             }
@@ -158,7 +203,8 @@
             justify-content: space-between;
             align-items: center;
 
-            .left, .right {
+            .left,
+            .right {
                 margin-bottom: 80px;
             }
         }
@@ -238,7 +284,7 @@
                 justify-content: space-between;
                 align-items: center;
 
-                @media screen and (min-width: 1150px){
+                @media screen and (min-width: 1150px) {
                     flex-direction: row;
                 }
 

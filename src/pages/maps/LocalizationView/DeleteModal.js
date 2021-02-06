@@ -1,5 +1,5 @@
 import React from "react"
-import AxiosInstance from "../../../utils/AxiosInstance";
+import AxiosInstance from "../../../utils/AxiosInstance"
 import { useHistory } from "react-router-dom"
 
 const DeleteModal = (props) => {
@@ -20,10 +20,7 @@ const DeleteModal = (props) => {
             <br />
             <br />
 
-            <div
-                className="btn danger"
-                onClick={del}
-            >
+            <div className="btn danger" onClick={del}>
                 Ano, smazat
             </div>
             <div className="btn" onClick={props.close}>

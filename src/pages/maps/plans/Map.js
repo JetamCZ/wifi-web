@@ -38,7 +38,7 @@ class Map extends React.Component {
             layerControlElement.getElementsByTagName("input")[index].click()
         }
 
-        this.setState({layerIndex: index})
+        this.setState({ layerIndex: index })
     }
 
     componentDidMount() {
@@ -74,7 +74,7 @@ class Map extends React.Component {
 
             this.map.on("baselayerchange", (change) => {
                 const index = this.props.layers.map((l) => l.name).indexOf(change.name)
-                this.setState({layerIndex: index})
+                this.setState({ layerIndex: index })
             })
 
             global.mapV = this.map
@@ -89,7 +89,7 @@ class Map extends React.Component {
     render() {
         return (
             <>
-                <div className="map" id={this.id} style={{height: this.props.height || "500px"}}></div>
+                <div className="map" id={this.id} style={{ height: this.props.height || "500px" }}></div>
                 {this.props.children}
             </>
         )
