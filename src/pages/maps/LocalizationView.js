@@ -12,13 +12,14 @@ import deviceIcon from "./plans/icons/deviceIcon"
 import L from "leaflet"
 import "leaflet-easybutton"
 import "leaflet-easybutton/src/easy-button.css"
-import VectorSelect from "./plans/VectorSelect";
 import DeleteModal from "./LocalizationView/DeleteModal";
 import Polygon from "./plans/Polygon";
 import EditRoomModal from "./LocalizationView/EditRoomsModal";
 import BlueLayout from "../../layouts/BlueLayout";
 import formats from "../../utils/formats";
-import Circle from "./plans/Circle";
+import io from "socket.io-client"
+import config from "../../config"
+import UserController from "../../controllers/UserController";
 
 const LocalizationView = () => {
     const states = {
@@ -43,34 +44,23 @@ const LocalizationView = () => {
 
     const map = useRef()
 
-    const getRandomColor = () => {
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
-
     useEffect(() => {
         update()
         const interval = setInterval(update, 5000)
 
-        /*
-    const socket = io(config.socketServer);
+        const socket = io(config.socketServer);
 
-    socket.on("handshake", () => {
-      socket.emit("auth", {
-        token: UserController.getToken(),
-        localizationId: id,
-      });
-    });
+        socket.on("handshake", () => {
+          socket.emit("auth", {
+            token: UserController.getToken(),
+            localizationId: id,
+          });
+        });
 
-    socket.on("update", (data) => {
-      setData(data);
-    });
-
-     */
+        socket.on("update", (data) => {
+            console.log("update")
+          setData(data);
+        });
 
         return function cleanup() {
             clearInterval(interval)
@@ -132,23 +122,6 @@ const LocalizationView = () => {
                 </h1>
             </div>
         )
-    }
-
-    const calc2 = (circle1, circle2) => {
-        const c = Math.sqrt(Math.pow((circle1[0]-circle2[0]), 2) + Math.pow((circle1[1]-circle2[1]), 2))
-        const d = (Math.pow(circle1[2], 2) + Math.pow(c, 2) - Math.pow(circle2[2], 2))/(2*c)
-        const h = Math.sqrt(Math.pow(circle1[2], 2) - Math.pow(d, 2))
-
-        return [
-            [
-                (circle2[0]-circle1[0])*d/c + (circle2[1]-circle1[1])*h/c + circle1[0],
-                (circle2[1]-circle1[1])*d/c - (circle2[0]-circle1[0])*h/c + circle1[1]
-            ],
-            [
-                (circle2[0]-circle1[0])*d/c - (circle2[1]-circle1[1])*h/c + circle1[0],
-                (circle2[1]-circle1[1])*d/c + (circle2[0]-circle1[0])*h/c + circle1[1]
-            ]
-        ]
     }
 
     return (
@@ -269,18 +242,6 @@ const LocalizationView = () => {
                                         <Polygon mapRef={map} polygon={room.polygon} f={room.f} color={room.color}><span>{room.name}</span></Polygon>
                                     )
                                 }
-                                {/*<VectorSelect mapRef={map}/>*/}
-                                {/*<Polygon mapRef={map} polygon={[
-                                    [0, 0],
-                                    [500, 0],
-                                    [0, 500]
-                                ]} f={0}><span>abcd</span></Polygon>*/}
-
-                                {/*
-                                    data.devices.find(d => d.mac === "e0:d0:83:d6:2a:57")?.custom?.deviceCalcData.map(d =>
-                                        <Circle mapRef={map} radius={d.distance*(global.d ?? 1)} pos={[d.x, d.y]}/>
-                                    )
-                                */}
                             </>}
                         </Map>
 
