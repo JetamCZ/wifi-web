@@ -4,6 +4,7 @@
     "private": true,
     "dependencies": {
         "axios": "^0.21.1",
+        "css-tooltip": "^0.3.4",
         "faker": "^5.1.0",
         "jsonwebtoken": "^8.5.1",
         "jsx-to-string": "^1.4.0",

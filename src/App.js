@@ -3,6 +3,7 @@ import React from "react"
 import "./css/normalize.css"
 import "./css/main.scss"
 import "./css/main.scss"
+import "css-tooltip"
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 

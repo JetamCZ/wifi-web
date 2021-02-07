@@ -68,6 +68,7 @@ const TimeLine = (props) => {
         const resDate = new Date(start.getTime());
 
         switch (look) {
+            case "DAY_DETAIL":
             case "DAY":
                 resDate.setDate(start.getDate() + move)
                 break
@@ -122,6 +123,16 @@ const TimeLine = (props) => {
                         return start.getDate() + ". " + (start.getMonth() + 1) + ". - " + dmy(end)
                     },
                 }
+            case "DAY_DETAIL":
+                return {
+                    timeSpan: 60 * 5,
+                    count: 24 * 60 / 5 + 1,
+                    formatTime: (e) => formats.getHM(e),
+                    formatTitle: (e) => {
+                        return dmy(e)
+                    },
+                }
+            case "DAY":
             default:
                 return {
                     timeSpan: 60 * 15,
@@ -159,6 +170,11 @@ const TimeLine = (props) => {
         return diff / timeProps.timeSpan * 50
     }
 
+    const getNow = () => {
+        const diff = Math.floor((new Date().getTime() - start.getTime()) / 1000)
+        return diff / timeProps.timeSpan * 50 + 25
+    }
+
     return (
         <div className="timeline-wrapper">
             <div className="title">
@@ -170,6 +186,7 @@ const TimeLine = (props) => {
                     <div className="prev" onClick={() => handlePrevNext(-1)}>-</div>
                     <div className="sel">
                         <select value={look} onChange={switchLook}>
+                            <option value="DAY_DETAIL">Den (podrobněji)</option>
                             <option value="DAY">Den</option>
                             <option value="WEEK">Týden</option>
                             <option value="MONTH">Měsíc</option>
@@ -195,6 +212,11 @@ const TimeLine = (props) => {
                     }
                 </div>
                 <div className="right">
+                    {
+                        start < new Date() && new Date() < end &&
+                            <div className="now" style={{left: getNow()}}></div>
+                    }
+
                     <div className="time">
                         {
                             [...Array(timeProps.count)].map((t, index) =>
@@ -218,10 +240,17 @@ const TimeLine = (props) => {
                                 </div>
                                 {
                                     getItemActivities(item).map((activity) =>
-                                        <div className="timeStamp" style={{
-                                            width: getLength(activity),
-                                            left: getStart(activity)
-                                        }}></div>
+                                        activity.tooltip ? (
+                                            <div className="timeStamp tooltip-bottom-right" data-tooltip={activity.tooltip} style={{
+                                                width: getLength(activity),
+                                                left: getStart(activity)
+                                            }}></div>
+                                        ) : (
+                                            <div className="timeStamp" style={{
+                                                width: getLength(activity),
+                                                left: getStart(activity)
+                                            }}></div>
+                                        )
                                     )
                                 }
                             </div>

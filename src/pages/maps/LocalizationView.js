@@ -20,6 +20,8 @@ import formats from "../../utils/formats"
 import io from "socket.io-client"
 import config from "../../config"
 import UserController from "../../controllers/UserController"
+import TimeLine from "../history/components/TimeLine";
+import Circle from "./plans/Circle";
 
 const LocalizationView = () => {
     const states = {
@@ -33,7 +35,8 @@ const LocalizationView = () => {
     const [data, setData] = useState(null)
     const [showRooms, setShowRooms] = useState(false)
 
-    const [atr, setAtr] = useState(null)
+
+    const [timeData, setTimeData] = useState(null)
 
     const { id } = useParams()
 
@@ -46,9 +49,11 @@ const LocalizationView = () => {
 
     useEffect(() => {
         update()
-        const interval = setInterval(update, 5000)
+        const interval = setInterval(update, 3*1000)
 
         const socket = io(config.socketServer)
+
+        global.d = 12
 
         socket.on("handshake", () => {
             socket.emit("auth", {
@@ -61,6 +66,10 @@ const LocalizationView = () => {
             console.log("update")
             setData(data)
         })
+
+        AxiosInstance.get('/history/localization/'+id)
+            .then((res) => setTimeData(res.data))
+            .catch((e) => {})
 
         return function cleanup() {
             clearInterval(interval)
@@ -243,10 +252,21 @@ const LocalizationView = () => {
                                                 <span>{room.name}</span>
                                             </Polygon>
                                         ))}
+                                    {
+                                        data.devices.find(d => d.mac === "e0:d0:83:d6:2a:57")?.custom?.deviceCalcData.map(d =>
+                                            <Circle mapRef={map} pos={[d.x, d.y]} radius={d.distance* data.devices.find(d => d.mac === "e0:d0:83:d6:2a:57")?.custom?.dx} color="red"/>
+                                        )
+                                    }
+                                    {
+                                        data.devices.find(d => d.mac === "58:00:e3:ca:99:01")?.custom?.deviceCalcData.map(d =>
+                                            <Circle mapRef={map} pos={[d.x, d.y]} radius={d.distance * data.devices.find(d => d.mac === "58:00:e3:ca:99:01")?.custom?.dx} color="blue"/>
+                                        )
+                                    }
                                 </>
                             )}
                         </Map>
-                        {JSON.stringify(data?.devices[0]?.custom?.deviceCalcData)}
+                        MOBIL: {JSON.stringify(data.devices.find(d => d.mac === "e0:d0:83:d6:2a:57")?.custom?.deviceCalcData)} <br/>
+                        NTB: {JSON.stringify(data.devices.find(d => d.mac === "58:00:e3:ca:99:01")?.custom?.deviceCalcData)} <br/>
                         <div className="tools">
                             <div
                                 className="item"
@@ -300,6 +320,25 @@ const LocalizationView = () => {
                                 </tbody>
                             </table>
                         </div>
+
+                        {
+                            timeData && <TimeLine
+                                title="Aktivita zařízení"
+                                items={timeData.map(t => {
+                                return {
+                                    name: t.device.name,
+                                    sub: t.device.mac,
+                                    activities: t.activities.map(a => {
+                                        return {
+                                            from: new Date(a.from),
+                                            to: new Date(a.to),
+                                            tooltip: a.rooms.map(r => r.name).join(", ")
+                                        }
+                                    })
+                                }
+                            })}/>
+                        }
+
                         <Modal ref={changeBeaconsPosModal}>
                             <ChangeBeaconsPos
                                 id={id}

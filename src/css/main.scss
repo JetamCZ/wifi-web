@@ -490,6 +490,15 @@ label.form-control {
             overflow-x: auto;
             background-color: #f7f7f7;
             padding-left: 25px;
+            position: relative;
+
+            .now {
+                background-color: rgba(red, 0.3);
+                height: 100%;
+                width: 3px;
+                position: absolute;
+                top: 0; left: 0;
+            }
 
             .time {
                 display: flex;
@@ -535,6 +544,12 @@ label.form-control {
                     left: 0;
                     height: 100%;
                     background-color: $main-color;
+                    border-left: 1px solid #2ece8b;
+                    box-sizing: border-box;
+
+                    &:hover {
+                        background-color: #2cec9c;
+                    }
                 }
             }
         }

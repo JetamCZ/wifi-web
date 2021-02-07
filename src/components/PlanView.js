@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, {useEffect, useRef, useState} from "react"
 import Map from "../pages/maps/plans/Map"
 import AxiosInstance from "../utils/AxiosInstance"
 import T from "./T"
 import Toast from "../utils/Toast"
+import Modal from "./Modal";
 
 const PlanView = (props) => {
     const states = {
@@ -15,7 +16,14 @@ const PlanView = (props) => {
     const [state, setState] = useState(states.LOADING)
     const [data, setData] = useState(null)
 
+    const renameModalRef = useRef()
+    const [renameName, setRenameName] = useState("")
+
     useEffect(() => {
+        update()
+    }, [])
+
+    const update = () => {
         AxiosInstance.get("/plans/" + props.id)
             .then((res) => {
                 setData(res.data)
@@ -26,7 +34,7 @@ const PlanView = (props) => {
             .catch(() => {
                 setState(states.ERROR)
             })
-    }, [])
+    }
 
     const getMapData = (d) => {
         const layers = { ...d }.floors
@@ -54,6 +62,16 @@ const PlanView = (props) => {
             })
     }
 
+    const rename = () => {
+        AxiosInstance.put("/plans/" + props.id, {name: renameName})
+            .then(() => {
+                renameModalRef.current.close()
+                update()
+                props.update()
+            })
+            .catch(() => {})
+    }
+
     return (
         <div className="viewPlan">
             {state === states.LOADING && (
@@ -76,6 +94,13 @@ const PlanView = (props) => {
                     <Map layers={getMapData(data)} />
 
                     <div className="tools">
+                        <div className="item" onClick={() => {
+                            setRenameName(data?.name)
+                            renameModalRef.current.open()
+                        }}>
+                            <img src={"/img/icons/edit.svg"} alt="Edit icon" />
+                            Přejmenovat
+                        </div>
                         <div className="item" onClick={remove}>
                             <img src={"/img/icons/trash.svg"} alt="Trash icon" />
                             Odebrat plán
@@ -95,6 +120,18 @@ const PlanView = (props) => {
                     <T id="viewBeacon.deleted" />
                 </h1>
             )}
+
+            <Modal ref={renameModalRef}>
+                <h1>Přejmenování plánu</h1>
+                <br/>
+                <label className="form-control">
+                    <div className="title">Název</div>
+                    <input type="text" placeholder="Zadej název" defaultValue={data?.name} onChange={(e) => setRenameName(e.target.value)}/>
+                </label>
+                <div className="text-right">
+                    <div className="btn success" onClick={rename}>Přejmenovat</div>
+                </div>
+            </Modal>
         </div>
     )
 }
