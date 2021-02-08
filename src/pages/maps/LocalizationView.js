@@ -67,15 +67,22 @@ const LocalizationView = () => {
             setData(data)
         })
 
-        AxiosInstance.get('/history/localization/'+id)
-            .then((res) => setTimeData(res.data))
-            .catch((e) => {})
+        updateHistoryData()
+        const intHistory = setInterval(updateHistoryData, 30*1000)
+
 
         return function cleanup() {
             clearInterval(interval)
+            clearInterval(intHistory)
             //socket.disconnect();
         }
     }, [])
+
+    const updateHistoryData = () => {
+        AxiosInstance.get('/history/localization/'+id)
+            .then((res) => setTimeData(res.data))
+            .catch((e) => {})
+    }
 
     const update = () => {
         AxiosInstance.get("/localization/" + id)
@@ -247,26 +254,24 @@ const LocalizationView = () => {
                                         </Marker>
                                     ))}
                                     {showRooms &&
-                                        data.rooms.map((room) => (
-                                            <Polygon mapRef={map} polygon={room.polygon} f={room.f} color={room.color}>
+                                        data?.rooms.map((room) => (
+                                            <Polygon key={room._id} mapRef={map} polygon={room.polygon} f={room.f} color={room.color}>
                                                 <span>{room.name}</span>
                                             </Polygon>
-                                        ))}
-                                    {
-                                        data.devices.find(d => d.mac === "e0:d0:83:d6:2a:57")?.custom?.deviceCalcData.map(d =>
-                                            <Circle mapRef={map} pos={[d.x, d.y]} radius={d.distance* data.devices.find(d => d.mac === "e0:d0:83:d6:2a:57")?.custom?.dx} color="red"/>
-                                        )
+                                        ))
                                     }
                                     {
-                                        data.devices.find(d => d.mac === "58:00:e3:ca:99:01")?.custom?.deviceCalcData.map(d =>
-                                            <Circle mapRef={map} pos={[d.x, d.y]} radius={d.distance * data.devices.find(d => d.mac === "58:00:e3:ca:99:01")?.custom?.dx} color="blue"/>
+                                        data.devices.find(d => d.mac === "f2:ec:8d:a5:22:dc")?.custom?.deviceCalcData.map(d =>
+                                            <Circle mapRef={map} pos={[d.x, d.y]} radius={d.distance* data.devices.find(d => d.mac === "f2:ec:8d:a5:22:dc")?.custom?.dx} color="red"/>
                                         )
                                     }
                                 </>
                             )}
                         </Map>
-                        MOBIL: {JSON.stringify(data.devices.find(d => d.mac === "e0:d0:83:d6:2a:57")?.custom?.deviceCalcData)} <br/>
+                        {/*
+                        MOBIL: {JSON.stringify(data.devices.find(d => d.mac === "f2:ec:8d:a5:22:dc")?.custom?.deviceCalcData)} <br/>
                         NTB: {JSON.stringify(data.devices.find(d => d.mac === "58:00:e3:ca:99:01")?.custom?.deviceCalcData)} <br/>
+                        */}
                         <div className="tools">
                             <div
                                 className="item"

@@ -75,7 +75,7 @@ class Marker extends React.Component {
         this.initInt && clearInterval(this.initInt)
         this.showHideInt && clearInterval(this.showHideInt)
 
-        this.map.removeLayer(this.marker)
+        this?.map && this.map.removeLayer(this.marker)
     }
 
     render() {

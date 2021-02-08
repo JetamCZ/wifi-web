@@ -19,7 +19,8 @@ const History = () => {
             activities: b.activities.map(a => {
                 return {
                     from: new Date(a.from),
-                    to: new Date(a.to)
+                    to: new Date(a.to),
+                    tooltip: (new Date(a.from).getHours())+":"+(new Date(a.from).getMinutes())+" - "+(new Date(a.to).getHours())+":"+(new Date(a.to).getMinutes())
                 }
             })
         }

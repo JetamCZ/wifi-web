@@ -40,7 +40,7 @@ class Circle extends React.Component {
     componentWillUnmount() {
         this.initInt && clearInterval(this.initInt)
 
-        this.map.removeLayer(this.marker)
+        this.map && this.map.removeLayer(this.marker)
     }
 
     render() {

@@ -8,7 +8,7 @@ const DeleteModal = (props) => {
     const del = () => {
         AxiosInstance.delete("/localization/" + props.id).then(() => {
             props.close()
-            history.push("/maps")
+            history.push("/localizations")
         })
     }
 
