@@ -39,7 +39,6 @@ const ChangeBeaconsPos = (props) => {
     }, [])
 
     const changeFloor = (beaconId, floor) => {
-        console.log("change floor", beaconId, floor)
         const newMod = { ...modData }
         newMod.beacons.find((beacon) => beacon._id === beaconId).f = floor
         setModData(newMod)

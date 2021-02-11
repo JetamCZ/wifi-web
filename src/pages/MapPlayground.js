@@ -19,7 +19,8 @@ const MapPlayground = () => {
     ]
 
     useEffect(() => {
-        setResPoint(calc(1))
+        calc(1)
+        //setResPoint()
     }, [])
 
     function intersectionsOfTwoCircles(circle1, circle2) {
@@ -46,6 +47,7 @@ const MapPlayground = () => {
     }
 
     const calc = (dx, maxDx = 50) => {
+        setD(dx)
         if (data.length < 2) {
             return null
         }
@@ -62,12 +64,13 @@ const MapPlayground = () => {
         if (intersection.length >= 2) {
             for (const point of intersection) {
                 if (isPointInCircle([data[2].x, data[2].y, data[2].distance * dx], point)) {
+                    setResPoint(point)
                     return point
                 }
             }
         }
 
-        return calc(dx + 0.1)
+        return setTimeout(() =>calc(dx + 0.1), 100)
     }
 
     return (

@@ -63,7 +63,6 @@ const LocalizationView = () => {
         })
 
         socket.on("update", (data) => {
-            console.log("update")
             setData(data)
         })
 
@@ -265,6 +264,11 @@ const LocalizationView = () => {
                                             <Circle mapRef={map} pos={[d.x, d.y]} radius={d.distance* data.devices.find(d => d.mac === "f2:ec:8d:a5:22:dc")?.custom?.dx} color="red"/>
                                         )
                                     }
+                                    {
+                                        data.devices.find(d => d.mac === "e0:d0:83:d6:2a:57")?.custom?.deviceCalcData.map(d =>
+                                            <Circle mapRef={map} pos={[d.x, d.y]} radius={d.distance* data.devices.find(d => d.mac === "e0:d0:83:d6:2a:57")?.custom?.dx} color="red"/>
+                                        )
+                                    }
                                 </>
                             )}
                         </Map>
@@ -337,7 +341,7 @@ const LocalizationView = () => {
                                         return {
                                             from: new Date(a.from),
                                             to: new Date(a.to),
-                                            tooltip: a.rooms.map(r => r.name).join(", ")
+                                            tooltip: formats.getHM(new Date(a.from))+" - "+formats.getHM(new Date(a.to))+"\n"+a.rooms.map(r => r.name).join(", ")
                                         }
                                     })
                                 }

@@ -7,10 +7,19 @@ const History = () => {
     const [beaconsHistory, setBeaconHistory] = useState(null)
 
     useEffect(() => {
+        update()
+        const int = setInterval(update, 30*1000)
+
+        return () => {
+            clearInterval(int)
+        }
+    }, [])
+
+    const update = () => {
         AxiosInstance.get('/history/beacons')
             .then(res => setBeaconHistory(res.data))
             .catch(() => {})
-    }, [])
+    }
 
     const beaconHistoryItems = beaconsHistory ? beaconsHistory.map(b => {
         return {
@@ -20,7 +29,7 @@ const History = () => {
                 return {
                     from: new Date(a.from),
                     to: new Date(a.to),
-                    tooltip: (new Date(a.from).getHours())+":"+(new Date(a.from).getMinutes())+" - "+(new Date(a.to).getHours())+":"+(new Date(a.to).getMinutes())
+                    tooltip: formats.getHM(new Date(a.from))+" - "+formats.getHM(new Date(a.to))
                 }
             })
         }

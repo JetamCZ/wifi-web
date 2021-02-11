@@ -57,7 +57,7 @@ const TimeLine = (props) => {
             while (resDate.getDay() !== 1) {
                 resDate.setDate(resDate.getDate() - 1)
             }
-            console.log(resDate.toString())
+
             setStart(resDate)
         }
 
@@ -200,8 +200,8 @@ const TimeLine = (props) => {
                 <div className="left">
                     <div className="time"></div>
                     {
-                        props.items.map(item =>
-                            <div className="item" key={item.name}>
+                        props.items.map((item, index) =>
+                            <div map={item.name} className="item" key={index}>
                                 <div className="name">{item.name}</div>
                                 <div className="sub">{item.sub}</div>
                             </div>
@@ -220,7 +220,7 @@ const TimeLine = (props) => {
                     <div className="time">
                         {
                             [...Array(timeProps.count)].map((t, index) =>
-                                <div className="item" key={index}>
+                                <div key={index} className="item">
                                     {
                                         timeProps.formatTime(getTime(start, timeProps.timeSpan * index))
                                     }
@@ -229,8 +229,8 @@ const TimeLine = (props) => {
                         }
                     </div>
                     {
-                        props.items.map(item =>
-                            <div className="activity">
+                        props.items.map((item, index) =>
+                            <div className="activity" key={index}>
                                 <div className="boxes">
                                     {
                                         [...Array(timeProps.count)].map((t, index) =>
@@ -239,14 +239,14 @@ const TimeLine = (props) => {
                                     }
                                 </div>
                                 {
-                                    getItemActivities(item).map((activity) =>
+                                    getItemActivities(item).map((activity, i) =>
                                         activity.tooltip ? (
-                                            <div className="timeStamp tooltip-bottom-right" data-tooltip={activity.tooltip} style={{
+                                            <div key={i} className={index < (props.items.length / 2) ? "timeStamp tooltip-bottom" : "timeStamp"} data-tooltip={activity.tooltip} style={{
                                                 width: getLength(activity),
                                                 left: getStart(activity)
                                             }}></div>
                                         ) : (
-                                            <div className="timeStamp" style={{
+                                            <div key={i} className={index < (props.items.length / 2) ? "timeStamp tooltip-bottom" : "timeStamp"} data-tooltip={activity.tooltip} style={{
                                                 width: getLength(activity),
                                                 left: getStart(activity)
                                             }}></div>

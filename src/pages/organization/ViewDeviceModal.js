@@ -21,23 +21,7 @@ function ViewDeviceModalOld() {
         AxiosInstance.get("/devices/60181fd484a2081728b69fc9")
             .then((res) => {
                 setData(res.data)
-                console.log(oldData)
                 setOldData(res.data)
-                /*
-                const newOldRSSI = {...oldRSSI}
-
-                console.log(newOldRSSI)
-
-                for (const meet of res.data.meets) {
-                    if(!newOldRSSI[meet.deviceKey]) {
-                        newOldRSSI[meet.deviceKey] = []
-                    }
-
-                    newOldRSSI[meet.deviceKey].push(meet.rssi)
-                }
-
-                setOldRSSI(newOldRSSI)
-                console.log(newOldRSSI)*/
             })
             .catch((err) => {})
     }
@@ -49,8 +33,6 @@ function ViewDeviceModalOld() {
             </h2>
         )
     }
-
-    console.log(oldData)
 
     return <div></div>
 }
@@ -86,8 +68,6 @@ class ViewDeviceModal extends React.Component {
 
                     this.oldRSSI[meet.deviceKey].push(meet.rssi * -1)
                 }
-
-                console.log(this.oldRSSI)
             })
             .catch((err) => {})
     }
