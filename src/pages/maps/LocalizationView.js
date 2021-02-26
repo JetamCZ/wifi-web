@@ -216,7 +216,7 @@ const LocalizationView = () => {
                                 }
                             }}
                         >
-                            {map.current && (
+                            {data && map.current && (
                                 <>
                                     {data.beacons.map((beacon) => (
                                         <Marker
@@ -259,7 +259,7 @@ const LocalizationView = () => {
                                             </Polygon>
                                         ))
                                     }
-                                    {
+                                    {/*
                                         data.devices.find(d => d.mac === "f2:ec:8d:a5:22:dc")?.custom?.deviceCalcData.map(d =>
                                             <Circle mapRef={map} pos={[d.x, d.y]} radius={d.distance* data.devices.find(d => d.mac === "f2:ec:8d:a5:22:dc")?.custom?.dx} color="red"/>
                                         )
@@ -268,14 +268,10 @@ const LocalizationView = () => {
                                         data.devices.find(d => d.mac === "e0:d0:83:d6:2a:57")?.custom?.deviceCalcData.map(d =>
                                             <Circle mapRef={map} pos={[d.x, d.y]} radius={d.distance* data.devices.find(d => d.mac === "e0:d0:83:d6:2a:57")?.custom?.dx} color="red"/>
                                         )
-                                    }
+                                    */}
                                 </>
                             )}
                         </Map>
-                        {/*
-                        MOBIL: {JSON.stringify(data.devices.find(d => d.mac === "f2:ec:8d:a5:22:dc")?.custom?.deviceCalcData)} <br/>
-                        NTB: {JSON.stringify(data.devices.find(d => d.mac === "58:00:e3:ca:99:01")?.custom?.deviceCalcData)} <br/>
-                        */}
                         <div className="tools">
                             <div
                                 className="item"
