@@ -1,17 +1,15 @@
 .com-activePeople .people {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 50px;
 
     .person {
-        background: rgb(42, 222, 184);
-        background: linear-gradient(56deg, rgba(42, 222, 184, 1) 0%, rgba(45, 253, 209, 1) 69%);
-
+        background: white;
         max-width: 290px;
         margin: 10px 5px;
         padding: 20px;
         width: 100%;
         box-sizing: border-box;
-
         box-shadow: $shadow;
 
         .avatar {

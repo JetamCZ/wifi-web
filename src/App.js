@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
 import Error404 from "./pages/404"
 import Settings from "./pages/settings"
-import DashBoard from "./pages/dashboard"
+import DashBoard from "./pages/Dashboard/dashboard"
 import AuthLayout from "./layouts/AuthLayout"
 import CreateOrg from "./pages/auth/create-org"
 import LoginPage from "./pages/auth/login"
@@ -73,7 +73,7 @@ const App = () => {
                 </Route>
 
                 <Route path="/history">
-                    <BlueLayout title="Záznamy">
+                    <BlueLayout title="Status majáků">
                         <History/>
                     </BlueLayout>
                 </Route>

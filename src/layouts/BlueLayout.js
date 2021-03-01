@@ -62,7 +62,7 @@ const BlueLayout = (props) => {
                         </div>
                         <div className="item">
                             <Link to="/history">
-                                Záznamy
+                                Status majáků
                             </Link>
                         </div>
                         {auth && (

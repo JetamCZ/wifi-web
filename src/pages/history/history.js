@@ -40,7 +40,7 @@ const History = () => {
             {
                 beaconsHistory && <TimeLine
                     title="Majáky"
-                    look="DAY"
+                    look="MONTH"
                     items={beaconHistoryItems}/>
             }
         </div>
