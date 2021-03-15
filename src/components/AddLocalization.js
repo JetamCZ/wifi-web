@@ -75,6 +75,7 @@ const AddLocalization = (props) => {
                         <select onChange={(e) => setData({ ...data, type: e.target.value })}>
                             <option value="NEAREST_FINGERPRINT">Nejbližší finger print</option>
                             <option value="TRILATERATION">Trilaterace</option>
+                            <option value="BRAIN">Brain.js (Neurální síť)</option>
                         </select>
                     </label>
 

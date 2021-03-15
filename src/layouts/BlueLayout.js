@@ -21,18 +21,10 @@ const BlueLayout = (props) => {
         window.location.href = "/auth"
     }
 
-    const randomIntFromInterval = (min, max) => {
-        // min and max included
-        return Math.floor(Math.random() * (max - min + 1) + min)
-    }
-
     return (
         <div className="blue-layout">
             <div
                 className="top"
-                style={{
-                    backgroundPosition: randomIntFromInterval(0, 150) + "px " + randomIntFromInterval(0, 150) + "px"
-                }}
             >
                 <div className="container menubar">
                     <Link to="/dashboard">

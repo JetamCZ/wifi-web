@@ -157,12 +157,20 @@ const LocalizationView = () => {
                                 <div className="title">Počet majáků:</div>
                                 <div className="value">{data.beacons.length}</div>
                             </div>
+                            {
+                                data?.customLocalizationData?.fingerPrintsCount >= 0 && (
+                                    <div className="item">
+                                        <div className="title">Počet fingerprintů:</div>
+                                        <div className="value">{data?.customLocalizationData?.fingerPrintsCount}</div>
+                                    </div>
+                                )
+                            }
                         </div>
                         <Map
                             layers={getLayers(data.plan)}
                             ref={map}
                             afterInit={(remap) => {
-                                if (["NEAREST_FINGERPRINT"].includes(data.type)) {
+                                if (["NEAREST_FINGERPRINT", "BRAIN"].includes(data.type)) {
                                     L.easyButton(
                                         '<img src="/img/icons/crosshair-add.svg" alt="Make fingerprint" />',
                                         () => {
@@ -172,7 +180,7 @@ const LocalizationView = () => {
                                     ).addTo(remap)
                                 }
 
-                                if (["NEAREST_FINGERPRINT", "TRILATERATION"].includes(data.type)) {
+                                if (["NEAREST_FINGERPRINT", "TRILATERATION", "BRAIN"].includes(data.type)) {
                                     L.easyButton(
                                         '<img src="/img/icons/wifi-edit.svg" alt="Edit position of beacons" />',
                                         () => {
@@ -182,7 +190,7 @@ const LocalizationView = () => {
                                     ).addTo(remap)
                                 }
 
-                                if (["NEAREST_FINGERPRINT", "TRILATERATION"].includes(data.type)) {
+                                if (["NEAREST_FINGERPRINT", "TRILATERATION", "BRAIN"].includes(data.type)) {
                                     L.easyButton(
                                         '<img src="/img/icons/home-edit.svg" alt="Edit Rooms" />',
                                         () => {
@@ -283,13 +291,19 @@ const LocalizationView = () => {
                                 Odebrat lokalizaci
                             </div>
                         </div>
-                        {["NEAREST_FINGERPRINT", "TRILATERATION"].includes(data.type) &&
+                        {["NEAREST_FINGERPRINT", "TRILATERATION", "BRAIN"].includes(data.type) &&
                             data.beacons.filter((b) => b.x === 0 && b.y === 0 && b.f === 0).length ===
                                 data.beacons.length && (
                                 <div className="step-info">
                                     Zvol nástroj <i>Editovat pozice majáků</i> a rozmisť majáky na mapě!
                                 </div>
                             )}
+                        {["BRAIN"].includes(data.type) && data?.customLocalizationData?.fingerPrintsCount <= 10 && (
+                            <div className="step-info">
+                                Pro využítí neuronové sítě, není uloženo dostatek fingerprintů (min 10). Lokalizace se provádí na základě "NEAREST_FINGERPRINT". (počet fingerprintů: {data?.customLocalizationData?.fingerPrintsCount})
+                            </div>
+                        )}
+                        {/* localization.customLocalizationData.fingerPrintsCount */}
                         {data.type === "WALDO" && (
                             <div className="step-info">
                                 <img src="/img/waldo/waldo.jpg" alt="" height={80} style={{ marginRight: "20px" }} />
