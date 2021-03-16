@@ -194,6 +194,27 @@
         }
     }
 
+    .video {
+        margin: 100px 0;
+
+        iframe {
+            width: 100%;
+            height: 400px;
+        }
+
+        @media screen and (min-width: 500px){
+            iframe {
+                height: 500px;
+            }
+        }
+
+        @media screen and (min-width: 700px){
+            iframe {
+                height: 800px;
+            }
+        }
+    }
+
     .maturita {
         margin: 100px 0;
 

@@ -1,17 +1,26 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import Steps from "./homepage/steps"
+import config from "../config";
 
 const HomePage = () => {
     return (
         <div className="page-homepage">
             <div className="topline">
                 <div className="container">
-                    <div className="logo">Locate.io</div>
+                    <div className="logo">Locate.io {config.SCHOOL_PROMO &&  <span style={{color: "white"}}>Školní demo</span>}</div>
                     <div className="btns">
-                        <Link to="/dashboard">
-                            <div className="btn success">Webová administrace</div>
-                        </Link>
+                        {
+                            config.SCHOOL_PROMO ? (
+                                <a href="https://wifi.puhony.eu/">
+                                    <div className="btn success">Běžící webová aplikace</div>
+                                </a>
+                            ) : (
+                                <Link to="/dashboard">
+                                    <div className="btn success">Webová administrace</div>
+                                </Link>
+                            )
+                        }
                     </div>
                 </div>
             </div>
@@ -20,12 +29,18 @@ const HomePage = () => {
                     <div className="box">
                         <p>Systém pro pasivní lokalizaci wifi zařízení v reálném čase!</p>
 
-                        <Link to="/dashboard">
-                            <div className="btn success">Webová administrace</div>
-                        </Link>
-                        <Link to="/docs">
-                            <div className="btn info">Manuál uživatele</div>
-                        </Link>
+                        {
+                            !config.SCHOOL_PROMO && (
+                                <>
+                                    <Link to="/dashboard">
+                                        <div className="btn success">Webová administrace</div>
+                                    </Link>
+                                    <Link to="/docs">
+                                        <div className="btn info">Manuál uživatele</div>
+                                    </Link>
+                                </>
+                            )
+                        }
                     </div>
                     <div className="map">
                         <div className="dot">
@@ -54,6 +69,16 @@ const HomePage = () => {
                 </div>
             </div>
 
+            <div className="video">
+                <div className="container">
+                    <h1>Placeholder prezentace</h1>
+                    <iframe src="https://www.youtube.com/embed/XEjLoHdbVeE" frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen></iframe>
+                    </div>
+            </div>
+
+            {config.SCHOOL_PROMO &&
             <div className="maturita">
                 <div className="container cols-2">
                     <div className="left">
@@ -93,6 +118,7 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
+            }
 
             <div className="container">
                 <Steps />
