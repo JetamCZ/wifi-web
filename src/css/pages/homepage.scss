@@ -196,6 +196,11 @@
 
     .video {
         margin: 100px 0;
+        text-align: center;
+
+        h1 {
+            margin: 20px 0;
+        }
 
         iframe {
             width: 100%;
@@ -210,7 +215,8 @@
 
         @media screen and (min-width: 700px){
             iframe {
-                height: 800px;
+                max-width: 800px;
+                height: 500px;
             }
         }
     }

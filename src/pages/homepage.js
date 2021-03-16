@@ -57,6 +57,11 @@ const HomePage = () => {
                         <p>Neztratíte se ani v budově</p>
                     </div>
                     <div className="feature">
+                        <img src="/img/icons/homepage/map-pin.svg" alt="" />
+                        <h2>Vidíte kde jste</h2>
+                        <p>Poloha zařízení se zobrazuje v reálném čase</p>
+                    </div>
+                    <div className="feature">
                         <img src="/img/icons/homepage/device-block.svg" alt="" />
                         <h2>Aplikaci nepotřebuješ</h2>
                         <p>Do zařízení nemusíš nic instalovat</p>
@@ -71,14 +76,13 @@ const HomePage = () => {
 
             <div className="video">
                 <div className="container">
-                    <h1>Placeholder prezentace</h1>
+                    <h1>Co systém umí?..</h1>
                     <iframe src="https://www.youtube.com/embed/XEjLoHdbVeE" frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen></iframe>
                     </div>
             </div>
 
-            {config.SCHOOL_PROMO &&
             <div className="maturita">
                 <div className="container cols-2">
                     <div className="left">
@@ -118,7 +122,6 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
-            }
 
             <div className="container">
                 <Steps />
