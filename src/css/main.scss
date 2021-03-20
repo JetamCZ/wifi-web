@@ -14,7 +14,7 @@ body {
 }
 
 .top-layout {
-    background-image: url("/img/inspiration-geometry.png");
+    background-image: url("../assets/inspiration-geometry.png");
 }
 
 a {
@@ -356,7 +356,7 @@ label.form-control {
 
                 cursor: pointer;
 
-                background-image: url("/img/icons/x.svg");
+                background-image: url("../assets/x.svg");
                 background-size: cover;
 
                 opacity: 0.2;
@@ -377,7 +377,7 @@ label.form-control {
     box-shadow: 0 0 8px #00000012;
     position: relative;
 
-    background-image: url("/img/empty/message.svg");
+    background-image: url("../assets/message.svg");
     background-repeat: no-repeat;
     background-size: 100px;
     background-position: 0px 10px;

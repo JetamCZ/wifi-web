@@ -267,16 +267,12 @@ const LocalizationView = () => {
                                             </Polygon>
                                         ))
                                     }
-                                    {/*
+                                    {
+                                        ["TRILATERATION"].includes(data.type) &&
                                         data.devices.find(d => d.mac === "f2:ec:8d:a5:22:dc")?.custom?.deviceCalcData.map(d =>
                                             <Circle mapRef={map} pos={[d.x, d.y]} radius={d.distance* data.devices.find(d => d.mac === "f2:ec:8d:a5:22:dc")?.custom?.dx} color="red"/>
                                         )
                                     }
-                                    {
-                                        data.devices.find(d => d.mac === "e0:d0:83:d6:2a:57")?.custom?.deviceCalcData.map(d =>
-                                            <Circle mapRef={map} pos={[d.x, d.y]} radius={d.distance* data.devices.find(d => d.mac === "e0:d0:83:d6:2a:57")?.custom?.dx} color="red"/>
-                                        )
-                                    */}
                                 </>
                             )}
                         </Map>
