@@ -22,6 +22,7 @@ import config from "../../config"
 import UserController from "../../controllers/UserController"
 import TimeLine from "../history/components/TimeLine";
 import Circle from "./plans/Circle";
+import axios from "axios";
 
 const LocalizationView = () => {
     const states = {
@@ -69,11 +70,16 @@ const LocalizationView = () => {
         updateHistoryData()
         const intHistory = setInterval(updateHistoryData, 30*1000)
 
+        const pingInterval = setInterval(() => {
+            AxiosInstance.get("/ping")
+        }, 500)
+
 
         return function cleanup() {
             clearInterval(interval)
             clearInterval(intHistory)
-            //socket.disconnect();
+            clearInterval(pingInterval)
+            socket.disconnect();
         }
     }, [])
 
