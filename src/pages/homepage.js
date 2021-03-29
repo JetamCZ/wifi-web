@@ -123,10 +123,10 @@ const HomePage = () => {
                 <h1 style={{fontSize: "3.5em", marginBottom: "60px"}}>Dokumenty ke stažení</h1>
 
                 <h2>Dokumentace</h2>
-                <a href="./dokumentace/puhony_SOC_28_3_2021.pdf" target="_blank" rel="noopener noreferrer">
+                <a href="https://b2017puhoma.delta-www.cz/maturita/dokumentace/puhony_SOC_28_3_2021.pdf" target="_blank" rel="noopener noreferrer">
                     <div className="btn">Dokumentace .pdf</div>
                 </a>
-                <a href="./dokumentace/puhony_SOC_28_3_2021.docx" target="_blank" rel="noopener noreferrer">
+                <a href="https://b2017puhoma.delta-www.cz/maturita/dokumentace/puhony_SOC_28_3_2021.docx" target="_blank" rel="noopener noreferrer">
                     <div className="btn">Dokumentace .docx</div>
                 </a>
 
@@ -145,15 +145,15 @@ const HomePage = () => {
 
                 <br/><br/>
                 <h2>Videa</h2>
-                <a href="./dokumentace/fingerprinty-demo-venku.mp4" target="_blank" rel="noopener noreferrer">
+                <a href="https://b2017puhoma.delta-www.cz/maturita/dokumentace/fingerprinty-demo-venku.mp4" target="_blank" rel="noopener noreferrer">
                     <div className="btn">Demo fingerprinty venku</div>
                 </a>
 
-                <a href="./dokumentace/trilaterace-demo.mp4" target="_blank" rel="noopener noreferrer">
+                <a href="https://b2017puhoma.delta-www.cz/maturita/dokumentace/trilaterace-demo.mp4" target="_blank" rel="noopener noreferrer">
                     <div className="btn">Demo trilaterace venku</div>
                 </a>
 
-                <a href="./dokumentace/fingerprinty_demo_vevnitr.mp4" target="_blank" rel="noopener noreferrer">
+                <a href="https://b2017puhoma.delta-www.cz/maturita/dokumentace/fingerprinty_demo_vevnitr.mp4" target="_blank" rel="noopener noreferrer">
                     <div className="btn">Demo fingerprinty uvnitř</div>
                 </a>
 
