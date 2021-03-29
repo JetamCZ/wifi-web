@@ -27,7 +27,7 @@ import config from "./config"
 
 const App = () => {
     return (
-        <Router>
+        <Router basename={config.SCHOOL_PROMO ? "/maturita" : "/"}>
             <Switch>
                 <Route path="/" exact>
                     <HomePage/>

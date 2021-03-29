@@ -35,7 +35,7 @@ const Steps = () => {
                             </p>
                         </div>
                         <div className="images mw">
-                            <img src="/img/homepage/beacon.jpg" alt="" />
+                            <img src="./img/homepage/beacon.jpg" alt="" />
                         </div>
                     </div>
                 )}
@@ -54,15 +54,15 @@ const Steps = () => {
                             <Slider
                                 slides={[
                                     {
-                                        img: "/img/homepage/map1.svg",
+                                        img: "./img/homepage/map1.svg",
                                         desc: "Takto instalované majáky jsou příliš blízko u sebe!"
                                     },
                                     {
-                                        img: "/img/homepage/map2.svg",
+                                        img: "./img/homepage/map2.svg",
                                         desc: "Minimální počet majáků by měl být 3!"
                                     },
                                     {
-                                        img: "/img/homepage/map3.svg",
+                                        img: "./img/homepage/map3.svg",
                                         desc: "Ideální instalace majáků"
                                     }
                                 ]}
@@ -78,7 +78,7 @@ const Steps = () => {
                             <p>Některé typy lokalizací vyžadují kalibraci, neboli nasmínání fingerprintů.</p>
                         </div>
                         <div className="images mw">
-                            <img src="/img/homepage/print.jpg" alt="" />
+                            <img src="./img/homepage/print.jpg" alt="" />
                         </div>
                     </div>
                 )}
