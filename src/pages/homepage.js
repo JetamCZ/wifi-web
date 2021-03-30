@@ -123,10 +123,10 @@ const HomePage = () => {
                 <h1 style={{fontSize: "3.5em", marginBottom: "60px"}}>Dokumenty ke stažení</h1>
 
                 <h2>Dokumentace</h2>
-                <a href="https://b2017puhoma.delta-www.cz/maturita/dokumentace/puhony_SOC_28_3_2021.pdf" target="_blank" rel="noopener noreferrer">
+                <a href="https://b2017puhoma.delta-www.cz/maturita/dokumentace/puhony_SOC_final.pdf" target="_blank" rel="noopener noreferrer">
                     <div className="btn">Dokumentace .pdf</div>
                 </a>
-                <a href="https://b2017puhoma.delta-www.cz/maturita/dokumentace/puhony_SOC_28_3_2021.docx" target="_blank" rel="noopener noreferrer">
+                <a href="https://b2017puhoma.delta-www.cz/maturita/dokumentace/puhony_SOC_final.docx" target="_blank" rel="noopener noreferrer">
                     <div className="btn">Dokumentace .docx</div>
                 </a>
 
